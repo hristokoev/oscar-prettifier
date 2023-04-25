@@ -1,0 +1,85 @@
+.bg {
+	background: #22272e !important; 
+	color: #adbbbc !important;
+}
+
+.hljs-index {
+	color: #8dd881;
+}
+
+.hljs-index-green {
+	color: #8dd881;
+}
+
+.hljs-index-red {
+	color: #8dd881;
+}
+
+.hljs-index-yellow {
+	color: #8dd881;
+}
+
+.hljs-flight {
+	color: #D0F4EA;
+}
+
+.hljs-flight-partner {
+	color: #D0F4EA;
+	font-style: italic;
+}
+
+.hljs-time {
+	color: #D0F4EA;
+}
+
+.hljs-date {
+	color: #D0F4EA;
+	text-decoration: underline;
+}
+
+.hljs-contact-info {
+	color: #dcbdfb;
+}
+
+.hljs-iata {
+	color: #92d9f8;
+	cursor: pointer;
+}
+
+.hljs-message {
+	color: #f57066;
+}
+
+/* Status */
+
+.container {
+	display: inline-block;
+	position: relative;
+}
+
+.hljs-status {
+	cursor: pointer;
+}
+
+.hljs-status:hover + .popup,
+.hljs-iata:hover + .popup {
+	opacity: 1;
+	visibility: visible;
+}
+
+.popup {
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	background: #22272e;
+	color: #adbbbc;
+	border: 1px solid #adbbbc;
+	padding: 5px;
+	border-radius: 5px;
+	transform: translate(-50%, -100%);
+	transition: 0.1s ease all;
+}
+
+.hljs-status.un {
+	color: #f57066;
+}
