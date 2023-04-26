@@ -38,7 +38,7 @@
 }
 
 .hljs-contact-info {
-	color: #dcbdfb;
+	color: #f7ea5b;
 }
 
 .hljs-iata {
@@ -53,7 +53,7 @@
 /* Status */
 
 .container {
-	display: inline-block;
+	display: contents;
 	position: relative;
 }
 

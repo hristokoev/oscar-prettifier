@@ -109,15 +109,15 @@ hljs.registerLanguage('hristo', function () {
 				variants: [
 					{
 						// KLM
-						begin: /(?<=[A-Z]{2}\: )((KL   [0-9])|(KL  [0-9]{2})|(KL [0-9]{3})|(KL[0-9]{4}))/
+						begin: /(?<=(  [0-9]  |[A-Z]{2}\: |^  [0-9] |^ [0-9]{2} |^[0-9]{3} ))((KL   [0-9])|(KL  [0-9]{2})|(KL [0-9]{3})|(KL[0-9]{4}))A?/
 					},
 					{
 						// AF
-						begin: /(?<=[A-Z]{2}\: )((AF   [0-9])|(AF  [0-9]{2})|(AF [0-9]{3})|(AF[0-9]{4}))/
+						begin: /(?<=(  [0-9]  |[A-Z]{2}\: |^  [0-9] |^ [0-9]{2} |^[0-9]{3} ))((AF   [0-9])|(AF  [0-9]{2})|(AF [0-9]{3})|(AF[0-9]{4}))A?/
 					},
 					{
 						// DELTA
-						begin: /(?<=[A-Z]{2}\: )((DL   [0-9])|(DL  [0-9]{2})|(DL [0-9]{3})|(DL[0-9]{4}))/
+						begin: /(?<=(  [0-9]  |[A-Z]{2}\: |^  [0-9] |^ [0-9]{2} |^[0-9]{3} ))((DL   [0-9])|(DL  [0-9]{2})|(DL [0-9]{3})|(DL[0-9]{4}))A?/
 					}
 				]
 			},
@@ -138,7 +138,7 @@ hljs.registerLanguage('hristo', function () {
 					},
 					{
 						// FLIGHT TIME (HHMM) ARRIVAL
-						begin: /(?<=[0-9]{4} )[0-9]{4}(\+1)?(?=$)/
+						begin: /(?<=[0-9]{4} )[0-9]{4}((\+1))?(?=$|\/ [0-9]{4} [0-9]{4})/
 					}
 				]
 			},
@@ -164,11 +164,11 @@ hljs.registerLanguage('hristo', function () {
 				variants: [
 					{
 						// EMAIL
-						begin: /.*APE ([A-Z0-9._%+-]+(@|\/\/)[A-Z0-9.-]+\.[A-Z]{2,4}).*$/gi
+						begin: /.*(APE|CTCE.*) ([A-Z0-9._%+-]+(@|\/\/)[A-Z0-9.-]+\.[A-Z]{2,4}).*$/gi
 					},
 					{
 						// PHONE
-						begin: /.*APM \+?([0-9]{3}[-. ]?[0-9]{3}[-. ]?[0-9]{4}).*$/gi
+						begin: /.*(APM|CTCM.*) \+?([0-9]{3}[-. ]?[0-9]{3}[-. ]?[0-9]{4}).*$/gi
 					}
 				]
 			},
@@ -205,15 +205,19 @@ targets.forEach(function (target) {
 		if (isLoading) return;
 		mutations.forEach(function (mutation) {
 			const historyEl = document.getElementById("crypticHistoList1Id");
-			target.textContent = target.textContent.replace(/\r\n\)|\n\)|\r\)/gm, "\n\n>>> GO TO NEXT PAGE (F8)");
+			// target.textContent = target.textContent.replace(/\r\n\)|\n\)|\r\)/gm, "\n\n>>> GO TO NEXT PAGE (F8)");
 			target.textContent = target.textContent.replace(/(OS\/)|(CS\/)|(TC\/)|(AS\/)|(XS\/)|(DL\/)|(RF\-)/gm, function (x) { return x.slice(0, 2) + ": " });
-			// if (historyEl.value.indexOf("RHA") == 0 || historyEl.value.indexOf("RPP/RHA") == 0) {
-			target.textContent = target.textContent.replace(/(\n        )|(\n      )/gm, "");
-			// } else {
-			// 	target.textContent = target.textContent.replace(/^(?!RP)(.+)(\n      )/gm, (match, p1, p2) => p1);					
-			// }
+			if (historyEl.value.indexOf("RHA") == 0 || historyEl.value.indexOf("RPP/RHA") == 0) {
+				let flag = true;
+				while (flag) {
+					flag = false;
+					target.textContent = target.textContent.replace(/^(?!RP)(.+)((\r\n        )|(\r\n      ))/gm, function (match, p1) { flag=true; return p1 });
+				}
+			} else {
+				target.textContent = target.textContent.replace(/^(?!RP)(.+)(\r\n      )/gm, (match, p1, p2) => p1);					
+			}
 			target.textContent = target.textContent.replace(/[0-9]{2}[A-Z]{3}[0-9]{4}Z/gi, function (x) { return x = "\n" + x + "\n" });
-			target.textContent = target.textContent.replace(/\/(?:.(?!\/[A-Z]{2}))*\*(?=\n)/gi, '');
+			target.textContent = target.textContent.replace(/\/(?:.(?!\/[A-Z]{2}))*\*/gi, '');
 			target.textContent = target.textContent.replace(/((?<=\n)[0-9]{2})([A-Z]{3})([0-9]{2})([0-9]{2})Z/gi, function (match, p1, p2, p3, p4) {
 				switch (p2) {
 					case 'JAN': return `        ${p1} JANUARY ${p3}:${p4} UTC+0`;
@@ -249,10 +253,7 @@ targets.forEach(function (target) {
 			observer.observe(target, config);
 		});
 	});
-	observer.observe(target, config);
-	setTimeout(function () {
-		target.textContent += ".";
-	}, 1000);
+	setTimeout(() => { observer.observe(target, config); }, 100);
 });
 
 function statusRead(status) {
@@ -289,4 +290,4 @@ function iataRead(iata) {
 }
 
 // SEATS
-// PHONE + EMAIL
+// FLYING BLUE ACCOUNT WITH *SSR
