@@ -66,7 +66,8 @@
 }
 
 .hljs-status:hover + .popup,
-.hljs-iata:hover + .popup {
+.hljs-iata:hover + .popup,
+.hljs-office-info:hover + .popup {
 	opacity: 1;
 	visibility: visible;
 }

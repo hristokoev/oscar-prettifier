@@ -1,0 +1,13 @@
+const language = [
+	...LANG_INDEX_GREEN,
+	...LANG_INDEX_YELLOW,
+	...LANG_INDEX_RED,
+	...LANG_INDEX,
+	...LANG_FLIGHT,
+	...LANG_TIME,
+	...LANG_DATE,
+	...LANG_IATA,
+	...LANG_CONTACT,
+	...LANG_MESSAGE,
+	...LANG_STATUS
+];

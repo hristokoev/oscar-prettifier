@@ -12,12 +12,33 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"https://oscar.airfrance-is.com/*"
+				"https://oscar.airfrance-is.com/*",
+				"<all_urls>"
 			],
 			"css": [
 				"highlight.css"
 			],
 			"js": [
+				"data/iataCodes.js",
+				"data/statusCodes.js",
+				"includes/preprocessor.js",
+				"includes/readIata.js",
+				"includes/readOffice.js",
+				"includes/readStatus.js",
+				"includes/replaceAsync.js",
+				"includes/etc/convertTime.js",
+				"syntax/index-green.js",
+				"syntax/index-yellow.js",
+				"syntax/index-red.js",
+				"syntax/index.js",
+				"syntax/flight.js",
+				"syntax/time.js",
+				"syntax/date.js",
+				"syntax/iata.js",
+				"syntax/contact.js",
+				"syntax/message.js",
+				"syntax/status.js",
+				"language.js",
 				"highlight.min.js",
 				"background.js"
 			]
@@ -26,7 +47,8 @@
 	"web_accessible_resources": [
 		{
 			"matches": [
-				"https://oscar.airfrance-is.com/*"
+				"https://oscar.airfrance-is.com/*",
+				"<all_urls>"
 			],
 			"resources": [
 				"data.json"
