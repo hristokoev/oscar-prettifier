@@ -16,6 +16,45 @@ async function getData(key) {
 	return result.key[key];
 }
 
+async function getOffice(iataOfficeId, officeId, history) {
+	const response = await fetch(`https://oscar.airfrance-is.com/oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=PV%2F${iataOfficeId}&numEmulator=1&officeId=${officeId}`);
+	const text = await response.text().then((data) => {
+		const parser = new DOMParser();
+		const xml = parser.parseFromString(data, "application/xml");
+		const el = xml.querySelector('crypticResponse1').innerHTML;
+		const result = el.match(/(?<=^NAM\*OFFICE\sNAME\s{6}\-\s)(.*)/gm);
+		return result;
+	})
+	await fetch(`https://oscar.airfrance-is.com/oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=${encodeURIComponent(history)}&numEmulator=1&officeId=${officeId}`);
+	return text;
+}
+
+function replaceAsync(string, searchValue, replacer) {
+	try {
+		if (typeof replacer === "function") {
+			// 1. Run fake pass of `replace`, collect values from `replacer` calls
+			// 2. Resolve them with `Promise.all`
+			// 3. Run `replace` with resolved values
+			var values = [];
+			String.prototype.replace.call(string, searchValue, function () {
+				values.push(replacer.apply(undefined, arguments));
+				return "";
+			});
+			return Promise.all(values).then(function (resolvedValues) {
+				return String.prototype.replace.call(string, searchValue, function () {
+					return resolvedValues.shift();
+				});
+			});
+		} else {
+			return Promise.resolve(
+				String.prototype.replace.call(string, searchValue, replacer)
+			);
+		}
+	} catch (error) {
+		return Promise.reject(error);
+	}
+}
+
 hljs.registerLanguage('hristo', function () {
 	return {
 		case_insensitive: true, // language is case-insensitive
@@ -35,6 +74,10 @@ hljs.registerLanguage('hristo', function () {
 						// DOUBLE TRIPLE DIGIT AFTER "/"
 						begin: /(?<=^[0-9]{3}\/)[0-9]{3} (?=(OS|CS|TC))/
 					},
+					// {
+					// 	// RF LINES
+					// 	begin: /(?<=^ {4}[0-9]{3} )RF\: .*$/
+					// }
 				]
 			},
 			{
@@ -160,6 +203,11 @@ hljs.registerLanguage('hristo', function () {
 				]
 			},
 			{
+				// IATA OFFICE ID
+				className: 'office-info',
+				begin: /(?<=\[).*(?=\])/
+			},
+			{
 				className: 'contact-info',
 				variants: [
 					{
@@ -203,21 +251,18 @@ targets.forEach(function (target) {
 	target.parentNode.className += ' bg';
 	let observer = new MutationObserver(function (mutations) {
 		if (isLoading) return;
-		mutations.forEach(function (mutation) {
+		mutations.forEach(async function (mutation) {
 			const historyEl = document.getElementById("crypticHistoList1Id");
+			const officeEl = document.getElementById("officeIdList1Id");
 			// target.textContent = target.textContent.replace(/\r\n\)|\n\)|\r\)/gm, "\n\n>>> GO TO NEXT PAGE (F8)");
 			target.textContent = target.textContent.replace(/(OS\/)|(CS\/)|(TC\/)|(AS\/)|(XS\/)|(DL\/)|(RF\-)/gm, function (x) { return x.slice(0, 2) + ": " });
-			if (historyEl.value.indexOf("RHA") == 0 || historyEl.value.indexOf("RPP/RHA") == 0) {
-				let flag = true;
-				while (flag) {
-					flag = false;
-					target.textContent = target.textContent.replace(/^(?!RP)(.+)((\r\n        )|(\r\n      ))/gm, function (match, p1) { flag=true; return p1 });
-				}
-			} else {
-				target.textContent = target.textContent.replace(/^(?!RP)(.+)(\r\n      )/gm, (match, p1, p2) => p1);					
+			let flag = true;
+			while (flag) {
+				flag = false;
+				target.textContent = target.textContent.replace(/^(?!RP)(.+)((\r\n        )|(\r\n      ))/gm, function (match, p1) { flag = true; return p1 });
 			}
 			target.textContent = target.textContent.replace(/[0-9]{2}[A-Z]{3}[0-9]{4}Z/gi, function (x) { return x = "\n" + x + "\n" });
-			target.textContent = target.textContent.replace(/\/(?:.(?!\/[A-Z]{2}))*\*/gi, '');
+			target.textContent = target.textContent.replace(/(\/(?:.(?!\/[A-Z]{2}))*\*)|(\*.*\*)/gi, '');
 			target.textContent = target.textContent.replace(/((?<=\n)[0-9]{2})([A-Z]{3})([0-9]{2})([0-9]{2})Z/gi, function (match, p1, p2, p3, p4) {
 				switch (p2) {
 					case 'JAN': return `        ${p1} JANUARY ${p3}:${p4} UTC+0`;
@@ -238,9 +283,14 @@ targets.forEach(function (target) {
 			target.textContent = target.textContent.replace(/((?<= [0-9] )[A-Z]{3}(?=[A-Z]{3} ))((?<= [0-9] [A-Z]{3})[A-Z]{3}(?= ))/gi, function (match, p1, p2) {
 				return p1 + " " + p2;
 			});
-			observer.disconnect();
+
+      		observer.disconnect();
 			hljs.highlightElement(target);
 			observer.observe(target, config);
+			target.innerHTML = await replaceAsync(target.innerHTML, /(?<=\s)[0-9]{8}(?=\sSU)/gi, async (match) => {
+				const result = await getOffice(match, officeEl.value, historyEl.value);
+				return `[<span class="hljs-office-info">${result}</span>]`;
+			});
 			observer.disconnect();
 			let statuses = document.querySelectorAll('.hljs-status');
 			statuses.forEach(function (status) {
