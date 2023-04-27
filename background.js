@@ -28,8 +28,8 @@ targets.forEach(function (target) {
 			observer.disconnect();
 
 			// Get the command line fields
-			const DOM_Hist_El = document.getElementById(`crypticHistoList${index + 1}Id`);
-			const DOM_Offi_El = document.getElementById(`officeIdList${index + 1}Id`);
+			const DOM_History_El = document.getElementById(`crypticHistoList${index + 1}Id`);
+			const DOM_Office_El = document.getElementById(`officeIdList${index + 1}Id`);
 
 			// Preprocess the text
 			target.textContent = preprocessor(target.textContent);
@@ -38,12 +38,16 @@ targets.forEach(function (target) {
 			hljs.highlightElement(target);
 
 			// Add hovering effect on the highlighted text (IATA, STATUS, OFFICE)
+			let HLJS_Class_El = document.querySelectorAll('.hljs-class');
+			let HLJS_Class_P_El = document.querySelectorAll('.hljs-class-partner');
 			let HLJS_Iata_El = document.querySelectorAll('.hljs-iata');
-			let HLJS_Stat_El = document.querySelectorAll('.hljs-status');
-			let HLJS_Offi_El = document.querySelectorAll('.hljs-office-info');
+			let HLJS_Stats_El = document.querySelectorAll('.hljs-status');
+			let HLJS_Office_El = document.querySelectorAll('.hljs-office-info');
+			HLJS_Class_El.forEach((el) => readClass(el, false));
+			HLJS_Class_P_El.forEach((el) => readClass(el, true));
 			HLJS_Iata_El.forEach((el) => readIata(el));
-			HLJS_Stat_El.forEach((el) => readStatus(el));
-			HLJS_Offi_El.forEach((el) => readOffice(el, DOM_Hist_El, DOM_Offi_El));
+			HLJS_Stats_El.forEach((el) => readStatus(el));
+			HLJS_Office_El.forEach((el) => readOffice(el, DOM_History_El, DOM_Office_El));
 
 			// Reconnect the observer
 			observer.observe(target, config);

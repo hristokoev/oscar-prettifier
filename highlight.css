@@ -19,13 +19,19 @@
 	color: #8dd881;
 }
 
-.hljs-flight {
+.hljs-flight,
+.hljs-flight-partner {
 	color: #D0F4EA;
 }
 
-.hljs-flight-partner {
-	color: #aed1c7;
+.hljs-flight-partner,
+.hljs-class-partner {
 	font-style: italic;
+}
+
+.hljs-class,
+.hljs-class-partner {
+	cursor: pointer;
 }
 
 .hljs-time {
@@ -65,6 +71,8 @@
 	cursor: pointer;
 }
 
+.hljs-class:hover + .popup,
+.hljs-class-partner:hover + .popup,
 .hljs-status:hover + .popup,
 .hljs-iata:hover + .popup,
 .hljs-office-info:hover + .popup {
