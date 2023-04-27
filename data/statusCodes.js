@@ -1,6 +1,6 @@
 const STATUS = {
-	"LK": "Passive booking - wait for confirmation",
+	"LK": "Wait for confirmation",
 	"HK": "Confirmed",
-	"TK": "Confirming, tell passenger new times",
+	"TK": "New times confirmed",
 	"UN": "Not possible, does not operate",
 };

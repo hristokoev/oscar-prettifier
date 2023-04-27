@@ -26,6 +26,7 @@
 				"includes/readOffice.js",
 				"includes/readStatus.js",
 				"includes/replaceAsync.js",
+				"includes/etc/convertDays.js",
 				"includes/etc/convertTime.js",
 				"syntax/index-green.js",
 				"syntax/index-yellow.js",

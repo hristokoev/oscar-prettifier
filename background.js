@@ -41,9 +41,9 @@ targets.forEach(function (target) {
 			let HLJS_Iata_El = document.querySelectorAll('.hljs-iata');
 			let HLJS_Stat_El = document.querySelectorAll('.hljs-status');
 			let HLJS_Offi_El = document.querySelectorAll('.hljs-office-info');
-			HLJS_Iata_El.forEach((code) => readIata(code));
-			HLJS_Stat_El.forEach((code) => readStatus(code));
-			HLJS_Offi_El.forEach((code) => readOffice(code, DOM_Hist_El, DOM_Offi_El));
+			HLJS_Iata_El.forEach((el) => readIata(el));
+			HLJS_Stat_El.forEach((el) => readStatus(el));
+			HLJS_Offi_El.forEach((el) => readOffice(el, DOM_Hist_El, DOM_Offi_El));
 
 			// Reconnect the observer
 			observer.observe(target, config);
