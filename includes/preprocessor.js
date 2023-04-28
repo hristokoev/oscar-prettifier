@@ -1,5 +1,5 @@
 const preprocessor = (text, options) => {
-	if (options.mergeLines) {
+	if (options.mergeLinesToggle) {
 		// Merging multiple lines
 		let flag = true;
 		while (flag) {
@@ -14,7 +14,7 @@ const preprocessor = (text, options) => {
 		text = text.replace(/((?<=\n)[0-9]{2})([A-Z]{3})([0-9]{2})([0-9]{2})Z/gi, (match, day, month, year, time) => convertTime(match, day, month, year, time));
 	}
 
-	if (options.hideSegmentIndicators) {
+	if (options.hideSegmentStatusToggle) {
 		// Changing OS/ to OS:, CS/ to CS:, TC/ to TC:, AS/ to AS:, XS/ to XS:, DL/ to DL:, RF- to RF:
 		text = text.replace(/(OS\/)|(CS\/)|(TC\/)|(AS\/)|(XS\/)|(DL\/)|(RF\-)/gm, (x) => `${x.slice(0, 2)}: `);
 		

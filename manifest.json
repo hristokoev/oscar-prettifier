@@ -1,11 +1,22 @@
 {
 	"name": "OSCAR Prettifier by H. Koev",
-	"action": {},
+	"background": {
+		"service_worker": "background.js",
+		"type": "module"
+	},
+	"action": {
+		"default_icon": {
+			"128": "images/icon128.png"
+		},
+		"default_popup": "popup.html",
+		"default_title": "OSCAR Prettifier by H. Koev"
+	},
 	"manifest_version": 3,
 	"version": "0.1",
 	"description": "Makes your Oscar a bit prettier.",
 	"permissions": [
 		"activeTab",
+		"tabs",
 		"scripting",
 		"storage"
 	],
@@ -19,6 +30,7 @@
 				"highlight.css"
 			],
 			"js": [
+				"data/defaultSettings.js",
 				"data/classCodes.js",
 				"data/iataCodes.js",
 				"data/statusCodes.js",
@@ -45,7 +57,7 @@
 				"syntax/status.js",
 				"language.js",
 				"highlight.min.js",
-				"background.js"
+				"contentScript.js"
 			]
 		}
 	],
@@ -56,7 +68,6 @@
 				"<all_urls>"
 			],
 			"resources": [
-				"data.json"
 			]
 		}
 	]
