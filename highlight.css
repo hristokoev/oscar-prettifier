@@ -3,6 +3,14 @@
 	color: #adbbbc !important;
 }
 
+.original-segment {
+	display: block;
+	padding-block: 1em;
+	margin-top: 0.5em;
+	border-radius: 0.2em;
+	background: #1a1e23 !important; 
+}
+
 .hljs-index {
 	color: #8dd881;
 }
@@ -29,11 +37,6 @@
 	font-style: italic;
 }
 
-.hljs-class,
-.hljs-class-partner {
-	cursor: pointer;
-}
-
 .hljs-time {
 	color: #D0F4EA;
 }
@@ -53,22 +56,15 @@
 
 .hljs-iata {
 	color: #92d9f8;
-	cursor: pointer;
 }
 
 .hljs-message {
 	color: #f57066;
 }
 
-/* Status */
-
 .container {
 	display: contents;
 	position: relative;
-}
-
-.hljs-status {
-	cursor: pointer;
 }
 
 .hljs-class:hover + .popup,

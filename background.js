@@ -6,8 +6,18 @@ let config = {
 	characterData: true,
 	attributes: true,
 	childList: true,
-	subtree: false
+	subtree: false,
 };
+
+// Options
+let options = {
+	class: true,
+	iata: true,
+	status: true,
+	office: true,
+	mergeLines: true,
+	hideSegmentIndicators: true,
+}
 
 // HLJS Register Language
 hljs.registerLanguage('hristo', function () {
@@ -32,35 +42,40 @@ targets.forEach(function (target) {
 			const DOM_Office_El = document.getElementById(`officeIdList${index + 1}Id`);
 
 			// Preprocess the text
-			target.textContent = preprocessor(target.textContent);
+			target.textContent = preprocessor(target.textContent, options);
 
 			// Highlight the text
 			hljs.highlightElement(target);
 
+			// get the elements
+			const firstIndex = document.querySelector('.hljs-index-green');
+			const firstDate = document.querySelector('.hljs-date');
+			originalSegment(firstIndex, firstDate);
+
 			// Add hovering effect on the highlighted text (IATA, STATUS, OFFICE)
-			let HLJS_Class_El = document.querySelectorAll('.hljs-class');
-			let HLJS_Class_P_El = document.querySelectorAll('.hljs-class-partner');
-			let HLJS_Iata_El = document.querySelectorAll('.hljs-iata');
-			let HLJS_Stats_El = document.querySelectorAll('.hljs-status');
-			let HLJS_Office_El = document.querySelectorAll('.hljs-office-info');
-			HLJS_Class_El.forEach((el) => readClass(el, false));
-			HLJS_Class_P_El.forEach((el) => readClass(el, true));
-			HLJS_Iata_El.forEach((el) => readIata(el));
-			HLJS_Stats_El.forEach((el) => readStatus(el));
-			HLJS_Office_El.forEach((el) => readOffice(el, DOM_History_El, DOM_Office_El));
+			const HLJS_Class_El = document.querySelectorAll('.hljs-class');
+			const HLJS_Class_P_El = document.querySelectorAll('.hljs-class-partner');
+			const HLJS_Iata_El = document.querySelectorAll('.hljs-iata');
+			const HLJS_Stats_El = document.querySelectorAll('.hljs-status');
+			const HLJS_Office_El = document.querySelectorAll('.hljs-office-info');
+			options.class && HLJS_Class_El.forEach((el) => readClass(el, false));
+			options.class && HLJS_Class_P_El.forEach((el) => readClass(el, true));
+			options.iata && HLJS_Iata_El.forEach((el) => readIata(el));
+			options.status && HLJS_Stats_El.forEach((el) => readStatus(el));
+			options.office && HLJS_Office_El.forEach((el) => readOffice(el, DOM_History_El, DOM_Office_El));
 
 			// Reconnect the observer
 			observer.observe(target, config);
 		});
 	});
 
-	// Give some breathing room for the DOM to load
+	// Start observing
 	observer.observe(target, config);
 
 	// Trigger the observer
 	setTimeout(function () {
 		target.textContent += " ";
-	}, 1000);
+	}, 10);
 });
 
 // TODO:

@@ -19,9 +19,11 @@
 				"highlight.css"
 			],
 			"js": [
+				"data/classCodes.js",
 				"data/iataCodes.js",
 				"data/statusCodes.js",
 				"includes/preprocessor.js",
+				"includes/originalSegment.js",
 				"includes/readClass.js",
 				"includes/readIata.js",
 				"includes/readOffice.js",
