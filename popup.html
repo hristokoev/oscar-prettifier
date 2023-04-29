@@ -14,81 +14,91 @@
 			<label class="switch">
 				<input type="checkbox" id="switch" name="switch">
 				<span class="slider round"></span>
-			</label>			
+			</label>
 		</div>
-		<h4 class="options-label">Theme</h4>
-		<div class="theme-selector">
-				<select name="theme" id="theme">
-					<option value="light">Light</option>
-					<option value="dark">Dark</option>
-					<option value="rich">Rich Purple</option>
-					<option value="cameo">Cameo</option>
-					<option value="highContrastDark">High Contrast (Dark)</option>
-				</select>
+		<div id="options">
+			<div class="theme-menu">
+				<h4 class="options-label">Theme&nbsp</h4>
+				<div class="theme-selector">
+					<select name="theme" id="theme">
+						<option value="light">Light</option>
+						<option value="dark">Dark</option>
+						<option value="rich">Rich Purple</option>
+						<option value="cameo">Cameo</option>
+						<option value="highContrastDark">High Contrast (Dark)</option>
+					</select>
+				</div>
+				<button id="resetButton" class="options-label">Reset</button>
+			</div>
+			<div class="options">
+				<div class="option">
+					<input type="color" name="colorText" id="colorText" value="#000000">
+					<label for="colorText">Text</label>
+				</div>
+				<div class="option">
+					<input type="color" name="colorBg" id="colorBg" value="#000000">
+					<label for="colorBg">Background</label>
+				</div>
+				<div class="option">
+					<input type="color" name="colorIndex" id="colorIndex" value="#000000">
+					<label for="colorIndex">Index</label>
+				</div>
+				<div class="option">
+					<input type="color" name="colorHighlight" id="colorHighlight" value="#000000">
+					<label for="colorHighlight">Highlight</label>
+				</div>
+				<div class="option">
+					<input type="color" name="colorAirports" id="colorAirports" value="#000000">
+					<label for="colorAirports">Airports</label>
+				</div>
+				<div class="option">
+					<input type="color" name="colorOffices" id="colorOffices" value="#000000">
+					<label for="colorOffices">Offices</label>
+				</div>
+				<div class="option">
+					<input type="color" name="colorContacts" id="colorContacts" value="#000000">
+					<label for="colorContacts">Contacts</label>
+				</div>
+				<div class="option">
+					<input type="color" name="colorImportant" id="colorImportant" value="#000000">
+					<label for="colorImportant">Important</label>
+				</div>
+			</div>
+			<h4 class="options-label">Show info bubbles</h4>
+			<div class="options">
+				<div class="option">
+					<input type="checkbox" name="classToggle" id="classToggle">
+					<label for="classToggle">Booking class</label>
+				</div>
+				<div class="option">
+					<input type="checkbox" name="iataToggle" id="iataToggle">
+					<label for="iataToggle">Airport code</label>
+				</div>
+				<div class="option">
+					<input type="checkbox" name="statusToggle" id="statusToggle">
+					<label for="statusToggle">Segment status</label>
+				</div>
+				<div class="option">
+					<input type="checkbox" name="officeToggle" id="officeToggle">
+					<label for="officeToggle">Office ID</label>
+				</div>
+			</div>
+			<h4 class="options-label">Extra</h4>
+			<div class="options">
+				<div class="option">
+					<input type="checkbox" name="hideSegmentStatusToggle"
+						id="hideSegmentStatusToggle">
+					<label for="hideSegmentStatusToggle">Hide end status</label>
+				</div>
+				<div class="option">
+					<input type="checkbox" name="experimentalToggle"
+						id="experimentalToggle">
+					<label for="experimentalToggle">Experimental ELI5</label>
+				</div>
+			</div>
+			<hr class="divider" />
 		</div>
-		<h4 class="options-label">Show info bubbles</h4>
-		<div class="options">
-			<div class="option">
-				<input type="checkbox" name="classToggle" id="classToggle">
-				<label for="classToggle">Booking class</label>
-			</div>
-			<div class="option">
-				<input type="checkbox" name="iataToggle" id="iataToggle">
-				<label for="iataToggle">Airport code</label>
-			</div>
-			<div class="option">
-				<input type="checkbox" name="statusToggle" id="statusToggle">
-				<label for="statusToggle">Segment status</label>
-			</div>
-			<div class="option">
-				<input type="checkbox" name="officeToggle" id="officeToggle">
-				<label for="officeToggle">Office ID</label>
-			</div>
-		</div>
-		<h4 class="options-label">Extra</h4>
-		<div class="options">
-			<div class="option">
-				<input type="checkbox" name="hideSegmentStatusToggle" id="hideSegmentStatusToggle">
-				<label for="hideSegmentStatusToggle">Hide end status</label>
-			</div>
-		</div>
-		<h4 class="options-label">Colors</h4>
-		<div class="options">
-			<div class="option">
-				<input type="color" name="colorText" id="colorText" value="#000000">
-				<label for="colorText">Text</label>
-			</div>
-			<div class="option">
-				<input type="color" name="colorBg" id="colorBg" value="#000000">
-				<label for="colorBg">Background</label>
-			</div>
-			<div class="option">
-				<input type="color" name="colorIndex" id="colorIndex" value="#000000">
-				<label for="colorIndex">Index</label>
-			</div>
-			<div class="option">
-				<input type="color" name="colorHighlight" id="colorHighlight" value="#000000">
-				<label for="colorHighlight">Highlight</label>
-			</div>
-			<div class="option">
-				<input type="color" name="colorAirports" id="colorAirports" value="#000000">
-				<label for="colorAirports">Airports</label>
-			</div>
-			<div class="option">
-				<input type="color" name="colorOffices" id="colorOffices" value="#000000">
-				<label for="colorOffices">Offices</label>
-			</div>
-			<div class="option">
-				<input type="color" name="colorContacts" id="colorContacts" value="#000000">
-				<label for="colorContacts">Contacts</label>
-			</div>
-			<div class="option">
-				<input type="color" name="colorImportant" id="colorImportant" value="#000000">
-				<label for="colorImportant">Important</label>
-			</div>
-		</div>
-		<a href="" id="resetButton">Reset</a>
-		<hr class="divider" />
+		<span id="reload" style="display: none;">Please reload the OSCAR page</span>
 		<p class="subtitle">Made by <code>H. Koev</code></p>
 		<p class="subtitle">BlueLink International, Prague</p>
 	</div>

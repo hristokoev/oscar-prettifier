@@ -1,12 +1,6 @@
 // Get the selected color presets from the popup UI
 let darkPreset = {
-	switch: true,
 	theme: "dark",
-	classToggle: true,
-	iataToggle: true,
-	statusToggle: true,
-	officeToggle: true,
-	hideSegmentStatusToggle: true,
 	colorText: "#adbbbc",
 	colorBg: "#22272e",
 	colorIndex: "#8dd881",
@@ -18,13 +12,7 @@ let darkPreset = {
 }
 
 let lightPreset = {
-	switch: true,
 	theme: "light",
-	classToggle: true,
-	iataToggle: true,
-	statusToggle: true,
-	officeToggle: true,
-	hideSegmentStatusToggle: true,
 	colorText: "#2E343B",
 	colorBg: "#FFFFFF",
 	colorIndex: "#00A955",
@@ -36,13 +24,7 @@ let lightPreset = {
 }
 
 let richPreset = {
-	switch: true,
 	theme: "rich",
-	classToggle: true,
-	iataToggle: true,
-	statusToggle: true,
-	officeToggle: true,
-	hideSegmentStatusToggle: true,
 	colorText: "#CCB9CF",
 	colorBg: "#232743",
 	colorIndex: "#98D8AA",
@@ -54,13 +36,7 @@ let richPreset = {
 }
 
 let cameoPreset = {
-	switch: true,
 	theme: "cameo",
-	classToggle: true,
-	iataToggle: true,
-	statusToggle: true,
-	officeToggle: true,
-	hideSegmentStatusToggle: true,
 	colorText: "#E8E8E8",
 	colorBg: "#3C3B39",
 	colorIndex: "#D2CEA9",
@@ -72,13 +48,7 @@ let cameoPreset = {
 }
 
 let highContrastDarkPreset = {
-	switch: true,
 	theme: "highContrastDark",
-	classToggle: true,
-	iataToggle: true,
-	statusToggle: true,
-	officeToggle: true,
-	hideSegmentStatusToggle: true,
 	colorText: "#FFFFFF",
 	colorBg: "#000000",
 	colorIndex: "#FFFFFF",
@@ -114,31 +84,44 @@ document.getElementById("theme").addEventListener("change", function () {
 
 document.getElementById("switch").addEventListener("change", function () {
 	let newValue = this.checked;
+	document.getElementById("options").style.display = newValue ? "block" : "none";
+	document.getElementById("reload").style.display = "block";
+	document.querySelector(".divider").style.display = "none";
 	chrome.storage.sync.set({ "switch": newValue });
 });
 
 document.getElementById("classToggle").addEventListener("change", function () {
 	let newValue = this.checked;
+	document.getElementById("reload").style.display = "block";
+	document.querySelector(".divider").style.display = "none";
 	chrome.storage.sync.set({ "classToggle": newValue });
 });
 
 document.getElementById("iataToggle").addEventListener("change", function () {
 	let newValue = this.checked;
+	document.getElementById("reload").style.display = "block";
+	document.querySelector(".divider").style.display = "none";
 	chrome.storage.sync.set({ "iataToggle": newValue });
 });
 
 document.getElementById("statusToggle").addEventListener("change", function () {
 	let newValue = this.checked;
+	document.getElementById("reload").style.display = "block";
+	document.querySelector(".divider").style.display = "none";
 	chrome.storage.sync.set({ "statusToggle": newValue });
 });
 
 document.getElementById("officeToggle").addEventListener("change", function () {
 	let newValue = this.checked;
+	document.getElementById("reload").style.display = "block";
+	document.querySelector(".divider").style.display = "none";
 	chrome.storage.sync.set({ "officeToggle": newValue });
 });
 
 document.getElementById("hideSegmentStatusToggle").addEventListener("change", function () {
 	let newValue = this.checked;
+	document.getElementById("reload").style.display = "block";
+	document.querySelector(".divider").style.display = "none";
 	chrome.storage.sync.set({ "hideSegmentStatusToggle": newValue });
 });
 
@@ -186,13 +169,14 @@ document.getElementById("colorImportant").addEventListener("change", function ()
 // Function to load selected preset from Chrome Storage
 function loadPreset() {
 	chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "officeToggle", "hideSegmentStatusToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
-		document.getElementById("switch").checked = result.switch || typeof result.switch === 'undefined' && darkPreset.switch;
+		document.getElementById("switch").checked = result.switch || typeof result.switch === 'undefined';
+		document.getElementById("options").style.display = document.getElementById("switch").checked ? "block" : "none";
 		document.getElementById("theme").value = result.theme || darkPreset.theme;
-		document.getElementById("classToggle").checked = result.classToggle || typeof result.classToggle === 'undefined' && darkPreset.classToggle;
-		document.getElementById("iataToggle").checked = result.iataToggle || typeof result.iataToggle === 'undefined' && darkPreset.iataToggle;
-		document.getElementById("statusToggle").checked = result.statusToggle || typeof result.statusToggle === 'undefined' && darkPreset.statusToggle;
-		document.getElementById("officeToggle").checked = result.officeToggle || typeof result.officeToggle === 'undefined' && darkPreset.officeToggle;
-		document.getElementById("hideSegmentStatusToggle").checked = result.hideSegmentStatusToggle || typeof result.hideSegmentStatusToggle === 'undefined' && darkPreset.hideSegmentStatusToggle;
+		document.getElementById("classToggle").checked = result.classToggle || typeof result.classToggle === 'undefined';
+		document.getElementById("iataToggle").checked = result.iataToggle || typeof result.iataToggle === 'undefined';
+		document.getElementById("statusToggle").checked = result.statusToggle || typeof result.statusToggle === 'undefined';
+		document.getElementById("officeToggle").checked = result.officeToggle || typeof result.officeToggle === 'undefined';
+		document.getElementById("hideSegmentStatusToggle").checked = result.hideSegmentStatusToggle || typeof result.hideSegmentStatusToggle === 'undefined';
 		document.getElementById("colorText").value = result.colorText || darkPreset.colorText;
 		document.getElementById("colorBg").value = result.colorBg || darkPreset.colorBg;
 		document.getElementById("colorIndex").value = result.colorIndex || darkPreset.colorIndex;
