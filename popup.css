@@ -36,6 +36,10 @@ body {
 	font-size: 12px;
 }
 
+.theme-selector {
+	margin-bottom: 20px;
+}
+
 .options-label {
 	font-size: 14px;
 	margin-bottom: 10px;

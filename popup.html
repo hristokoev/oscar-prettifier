@@ -17,15 +17,14 @@
 			</label>			
 		</div>
 		<h4 class="options-label">Theme</h4>
-		<div class="options">
-			<div class="option">
-				<input type="radio" name="theme" id="themeLight" value="Light">
-				<label for="themeLight">Light</label>
-			</div>
-			<div class="option">
-				<input type="radio" name="theme" id="themeDark" value="Dark">
-				<label for="themeDark">Dark</label>
-			</div>
+		<div class="theme-selector">
+				<select name="theme" id="theme">
+					<option value="light">Light</option>
+					<option value="dark">Dark</option>
+					<option value="rich">Rich Purple</option>
+					<option value="cameo">Cameo</option>
+					<option value="highContrastDark">High Contrast (Dark)</option>
+				</select>
 		</div>
 		<h4 class="options-label">Show info bubbles</h4>
 		<div class="options">
@@ -92,6 +91,7 @@
 				<label for="colorImportant">Important</label>
 			</div>
 		</div>
+		<a href="" id="resetButton">Reset</a>
 		<hr class="divider" />
 		<p class="subtitle">Made by <code>H. Koev</code></p>
 		<p class="subtitle">BlueLink International, Prague</p>

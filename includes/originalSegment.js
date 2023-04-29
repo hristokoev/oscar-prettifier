@@ -1,4 +1,4 @@
-const originalSegment = (firstEl, lastEl) => {
+const originalSegment = (firstEl, lastEl, background) => {
 	// Get the text content between the elements
 	const startIndex = firstEl.textContent.trim();
 	const endIndex = lastEl.textContent.trim();
@@ -16,6 +16,7 @@ const originalSegment = (firstEl, lastEl) => {
 		newDiv.appendChild(element.cloneNode(true));
 	});
 	newDiv.className = "original-segment";
+	// newDiv.style.backgroundColor = colorBg;
 
 	// Insert the new div before the last element
 	lastEl.parentNode.insertBefore(newDiv, lastEl);
