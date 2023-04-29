@@ -3,10 +3,7 @@ const readClass = (flightClass, partner) => {
 	const clone = flightClass.cloneNode(true);
 	const parent = flightClass.parentNode;
 	const container = document.createElement('div');
-	clone.textContent = "Loading...";
-	flightClass.addEventListener('mouseover', function () {
-		clone.textContent = partner ? "Partner class" : CLASSESAFKL[classText];
-	});
+	clone.textContent = partner ? "Partner class" : CLASSESAFKL[classText];
 	clone.className = 'popup';
 	parent.replaceChild(container, flightClass);
 	container.className = 'container';

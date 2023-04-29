@@ -7,7 +7,7 @@ const preprocessor = (text, options) => {
 	}
 
 	// Separating the time from the rest of the text
-	text = text.replace(/[0-9]{2}[A-Z]{3}[0-9]{4}Z/gi, (x) => `\n${x}\n`);
+	text = text.replace(/[0-9]{2}[A-Z]{3}[0-9]{4}Z/gi, (x) => `\n${x}`);
 
 	// Make time more readable
 	text = text.replace(/((?<=\n)[0-9]{2})([A-Z]{3})([0-9]{2})([0-9]{2})Z/gi, (match, day, month, year, time) => convertTime(match, day, month, year, time));

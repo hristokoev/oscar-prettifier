@@ -30,12 +30,12 @@
 				"data/iataCodes.js",
 				"data/statusCodes.js",
 				"includes/preprocessor.js",
-				"includes/originalSegment.js",
 				"includes/readClass.js",
 				"includes/readIata.js",
 				"includes/readOffice.js",
 				"includes/readStatus.js",
 				"includes/replaceAsync.js",
+				"includes/etc/findIndex.js",
 				"includes/etc/convertDays.js",
 				"includes/etc/convertTime.js",
 				"syntax/index-green.js",
@@ -52,6 +52,7 @@
 				"syntax/status.js",
 				"language.js",
 				"highlight.min.js",
+				"highlightjs-highlight-lines.min.js",
 				"contentScript.js"
 			]
 		}

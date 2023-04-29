@@ -49,6 +49,18 @@ let cameoPreset = {
 	colorImportant: "#F57066"
 }
 
+let mutedBluePreset = {
+	theme: "mutedBlue",
+	colorText: "#ECF0F1",
+	colorBg: "#3D4C5C",
+	colorIndex: "#99C7BE",
+	colorHighlight: "#A9D5DB",
+	colorAirports: "#A9D5DB",
+	colorOffices: "#B5E655",
+	colorContacts: "#B5E655",
+	colorImportant: "#F57066"
+}
+
 let highContrastDarkPreset = {
 	theme: "highContrastDark",
 	colorText: "#FFFFFF",
@@ -76,6 +88,9 @@ document.getElementById("theme").addEventListener("change", function () {
 			break;
 		case "cameo":
 			chrome.storage.sync.set(cameoPreset);
+			break;
+		case "mutedBlue":
+			chrome.storage.sync.set(mutedBluePreset);
 			break;
 		case "highContrastDark":
 			chrome.storage.sync.set(highContrastDarkPreset);
@@ -127,6 +142,13 @@ document.getElementById("hideSegmentStatusToggle").addEventListener("change", fu
 	chrome.storage.sync.set({ "hideSegmentStatusToggle": newValue });
 });
 
+document.getElementById("linesToggle").addEventListener("change", function () {
+	let newValue = this.checked;
+	document.getElementById("reload").style.display = "block";
+	document.querySelector(".divider").style.display = "none";
+	chrome.storage.sync.set({ "linesToggle": newValue });
+});
+
 document.getElementById("colorText").addEventListener("change", function () {
 	let newValue = this.value;
 	chrome.storage.sync.set({ "colorText": newValue });
@@ -170,7 +192,7 @@ document.getElementById("colorImportant").addEventListener("change", function ()
 
 // Function to load selected preset from Chrome Storage
 function loadPreset() {
-	chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "officeToggle", "hideSegmentStatusToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
+	chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "officeToggle", "hideSegmentStatusToggle", "linesToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
 		document.getElementById("switch").checked = result.switch || typeof result.switch === 'undefined';
 		document.getElementById("options").style.display = document.getElementById("switch").checked ? "block" : "none";
 		document.getElementById("theme").value = result.theme || darkPreset.theme;
@@ -179,6 +201,7 @@ function loadPreset() {
 		document.getElementById("statusToggle").checked = result.statusToggle || typeof result.statusToggle === 'undefined';
 		document.getElementById("officeToggle").checked = result.officeToggle || typeof result.officeToggle === 'undefined';
 		document.getElementById("hideSegmentStatusToggle").checked = result.hideSegmentStatusToggle || typeof result.hideSegmentStatusToggle === 'undefined';
+		document.getElementById("linesToggle").checked = result.linesToggle || typeof result.linesToggle === 'undefined';
 		document.getElementById("colorText").value = result.colorText || darkPreset.colorText;
 		document.getElementById("colorBg").value = result.colorBg || darkPreset.colorBg;
 		document.getElementById("colorIndex").value = result.colorIndex || darkPreset.colorIndex;

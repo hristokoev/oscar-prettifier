@@ -7,6 +7,7 @@ const getOffice = async (iataOfficeId, officeId, history) => {
 		const result = el.match(/(?<=^NAM\*OFFICE\sNAME\s{6}\-\s)(.*)/gm);
 		return result;
 	})
+	// Make a call to last command from the history
 	await fetch(`https://oscar.airfrance-is.com/oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=${encodeURIComponent(history)}&numEmulator=1&officeId=${officeId}`);
 	return text;
 }

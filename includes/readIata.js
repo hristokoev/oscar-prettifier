@@ -3,13 +3,10 @@ const readIata = (iata) => {
 	const clone = iata.cloneNode(true);
 	const parent = iata.parentNode;
 	const container = document.createElement('div');
-	clone.textContent = "Loading...";
+	clone.textContent = IATA[iataText];
 	iata.addEventListener('click', function () {
 		const data = IATA[iataText];
 		window.open(`https://www.google.com/search?q=${data}`);
-	});
-	iata.addEventListener('mouseover', function () {
-		clone.textContent = IATA[iataText];
 	});
 	clone.className = 'popup';
 	parent.replaceChild(container, iata);

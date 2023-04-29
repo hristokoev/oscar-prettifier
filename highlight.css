@@ -1,14 +1,6 @@
 .bg {
-	background: #22272e !important; 
+	background: #22272e !important;
 	color: #adbbbc !important;
-}
-
-.original-segment {
-	display: block;
-	padding-block: 1em;
-	margin-top: 0.5em;
-	border-top: 1px dashed;
-	border-bottom: 1px dashed;
 }
 
 .hljs-index {
@@ -42,6 +34,8 @@
 }
 
 .hljs-date {
+	display: inline-block;
+	margin-bottom: 10px;
 	color: #D0F4EA;
 	text-decoration: underline;
 }
@@ -67,11 +61,11 @@
 	position: relative;
 }
 
-.hljs-class:hover + .popup,
-.hljs-class-partner:hover + .popup,
-.hljs-status:hover + .popup,
-.hljs-iata:hover + .popup,
-.hljs-office-info:hover + .popup {
+.hljs-class:hover+.popup,
+.hljs-class-partner:hover+.popup,
+.hljs-status:hover+.popup,
+.hljs-iata:hover+.popup,
+.hljs-office-info:hover+.popup {
 	opacity: 1;
 	visibility: visible;
 }
@@ -91,4 +85,15 @@
 
 .hljs-status.un {
 	color: #f57066;
+}
+
+.highlight-line {
+	position: relative;
+}
+
+.highlight-line::before {
+	content: "";
+	display: block;
+	border-bottom: 0.5px dashed;
+	opacity: 0.25;
 }

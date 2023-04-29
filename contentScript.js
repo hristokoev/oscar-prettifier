@@ -8,6 +8,7 @@ let defaultOptions = {
 	statusToggle: true,
 	officeToggle: true,
 	hideSegmentStatusToggle: true,
+	linesToggle: false,
 	colorText: "#adbbbc",
 	colorBg: "#22272e",
 	colorIndex: "#8dd881",
@@ -37,7 +38,7 @@ hljs.registerLanguage('hristo', function () {
 	}
 });
 
-chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "officeToggle", "hideSegmentStatusToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
+chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "officeToggle", "hideSegmentStatusToggle", "linesToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
 	if (Object.keys(result).length === 0 && result.constructor === Object) {
 		chrome.storage.sync.set(defaultOptions);
 		options = defaultOptions;
@@ -54,7 +55,6 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				switch (key) {
 					case "colorText":
 						document.querySelector('.hljs').style.color = newValue;
-						document.querySelector('.original-segment').style.borderColor = newValue;
 						document.querySelectorAll('.popup').forEach((el) => el.style.color = newValue);
 						document.querySelectorAll('.popup').forEach((el) => el.style.borderColor = newValue);
 						break;
@@ -101,10 +101,23 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				// Highlight the text
 				hljs.highlightElement(target);
 
-				// Make a div for the original segment
-				const firstIndex = document.querySelector('.hljs-index-green');
-				const firstDate = document.querySelector('.hljs-date');
-				originalSegment(firstIndex, firstDate, options.colorText);
+				if (options.linesToggle) {
+					// Highlight lines
+					let start = findIndex("000", target);
+					let end = findIndex("+0", target);
+					hljs.initHighlightLinesOnLoad([]);
+					document.querySelectorAll('.highlight-line').forEach((el, index) => {
+						if (index == start) {
+							el.style.borderTop = "0.5px solid";
+							el.style.paddingTop = "10px"; 
+							el.style.marginTop = "10px";
+						}
+						if (index == end) {
+							el.style.borderBottom = "0.5px solid";
+							el.style.marginBottom = "10px";
+						}
+					});
+				}
 
 				// Apply the theme
 				const HLJS_Class_El = document.querySelectorAll('.hljs-class');
@@ -118,7 +131,6 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				const HLJS_Important_El = document.querySelectorAll('.hljs-message, .hljs-status.un');
 				document.querySelector('.hljs').style.color = options.colorText;
 				document.querySelector('.hljs').style.backgroundColor = options.colorBg;
-				document.querySelector('.original-segment').style.borderColor = options.colorText;
 				options.classToggle && HLJS_Class_El.forEach((el) => {
 					readClass(el, false);
 					el.style.cursor = "pointer";
