@@ -1,9 +1,5 @@
 {
 	"name": "OSCAR Prettifier by H. Koev",
-	"background": {
-		"service_worker": "background.js",
-		"type": "module"
-	},
 	"action": {
 		"default_icon": {
 			"128": "images/icon128.png"

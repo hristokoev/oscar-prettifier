@@ -1,3 +1,5 @@
+// POPUP UI
+
 // Get the selected color presets from the popup UI
 let darkPreset = {
 	theme: "dark",

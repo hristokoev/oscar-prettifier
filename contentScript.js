@@ -54,6 +54,7 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				switch (key) {
 					case "colorText":
 						document.querySelector('.hljs').style.color = newValue;
+						document.querySelector('.original-segment').style.borderColor = newValue;
 						document.querySelectorAll('.popup').forEach((el) => el.style.color = newValue);
 						document.querySelectorAll('.popup').forEach((el) => el.style.borderColor = newValue);
 						break;
@@ -100,15 +101,12 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				// Highlight the text
 				hljs.highlightElement(target);
 
-				// get the elements
+				// Make a div for the original segment
 				const firstIndex = document.querySelector('.hljs-index-green');
 				const firstDate = document.querySelector('.hljs-date');
-				try {
-					originalSegment(firstIndex, firstDate, options.colorBg);
-				} catch (error) {
-					console.log(error);
-				}
+				originalSegment(firstIndex, firstDate, options.colorText);
 
+				// Apply the theme
 				const HLJS_Class_El = document.querySelectorAll('.hljs-class');
 				const HLJS_Class_P_El = document.querySelectorAll('.hljs-class-partner');
 				const HLJS_Iata_El = document.querySelectorAll('.hljs-iata');
@@ -120,15 +118,27 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				const HLJS_Important_El = document.querySelectorAll('.hljs-message, .hljs-status.un');
 				document.querySelector('.hljs').style.color = options.colorText;
 				document.querySelector('.hljs').style.backgroundColor = options.colorBg;
-				options.classToggle && HLJS_Class_El.forEach((el) => readClass(el, false));
-				options.classToggle && HLJS_Class_P_El.forEach((el) => readClass(el, true));
+				document.querySelector('.original-segment').style.borderColor = options.colorText;
+				options.classToggle && HLJS_Class_El.forEach((el) => {
+					readClass(el, false);
+					el.style.cursor = "pointer";
+				});
+				options.classToggle && HLJS_Class_P_El.forEach((el) => {
+					readClass(el, true);
+					el.style.cursor = "pointer";
+				});
 				options.iataToggle && HLJS_Iata_El.forEach((el) => {
 					readIata(el);
+					el.style.cursor = "pointer";
 					el.style.color = options.colorAirports;
 				});
-				options.statusToggle && HLJS_Stats_El.forEach((el) => readStatus(el));
+				options.statusToggle && HLJS_Stats_El.forEach((el) => {
+					readStatus(el);
+					el.style.cursor = "pointer";
+				});
 				options.officeToggle && HLJS_Office_El.forEach((el) => {
 					readOffice(el, DOM_History_El, DOM_Office_El);
+					el.style.cursor = "pointer";
 					el.style.color = options.colorOffices;
 				});
 				HLJS_Highlighted_El.forEach((el) => {
@@ -164,7 +174,3 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 		}, 10);
 	});
 });
-
-// TODO:
-// SEATS
-// FLYING BLUE ACCOUNT WITH *SSR
