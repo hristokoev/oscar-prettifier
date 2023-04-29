@@ -11,7 +11,7 @@ This is a stand-alone Chrome Extension for the OSCAR tool, more known as Amadeus
 
 ## How does it work?
 
-The OSCAR tool has only one <pre> tag, which contains all the information. This extension uses regular expressions to find the information and then it parses it into <span> elements, like a language parser. Then, it uses CSS to style the elements.
+The OSCAR tool has only one `<pre>` tag, which contains all the information. This extension uses regular expressions to find the information and then it parses it into `<span>` elements, like a language parser. Then, it uses CSS to style the elements.
 
 **highlight.js is used for the syntax highlighting**
 
