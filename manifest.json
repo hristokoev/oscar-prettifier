@@ -30,7 +30,6 @@
 				"highlight.css"
 			],
 			"js": [
-				"data/defaultSettings.js",
 				"data/classCodes.js",
 				"data/iataCodes.js",
 				"data/statusCodes.js",

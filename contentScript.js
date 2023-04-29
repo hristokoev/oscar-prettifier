@@ -7,7 +7,6 @@ let defaultOptions = {
 	iataToggle: true,
 	statusToggle: true,
 	officeToggle: true,
-	mergeLinesToggle: true,
 	hideSegmentStatusToggle: true,
 	colorText: "#adbbbc",
 	colorBg: "#22272e",
@@ -38,7 +37,7 @@ hljs.registerLanguage('hristo', function () {
 	}
 });
 
-chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "officeToggle", "mergeLinesToggle", "hideSegmentStatusToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
+chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "officeToggle", "hideSegmentStatusToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
 	if (Object.keys(result).length === 0 && result.constructor === Object) {
 		chrome.storage.sync.set(defaultOptions);
 		options = defaultOptions;
@@ -104,7 +103,11 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				// get the elements
 				const firstIndex = document.querySelector('.hljs-index-green');
 				const firstDate = document.querySelector('.hljs-date');
-				originalSegment(firstIndex, firstDate, options.colorBg);
+				try {
+					originalSegment(firstIndex, firstDate, options.colorBg);
+				} catch (error) {
+					console.log(error);
+				}
 
 				const HLJS_Class_El = document.querySelectorAll('.hljs-class');
 				const HLJS_Class_P_El = document.querySelectorAll('.hljs-class-partner');

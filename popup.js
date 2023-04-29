@@ -6,7 +6,6 @@ let darkPreset = {
 	iataToggle: true,
 	statusToggle: true,
 	officeToggle: true,
-	mergeLinesToggle: true,
 	hideSegmentStatusToggle: true,
 	colorText: "#adbbbc",
 	colorBg: "#22272e",
@@ -25,7 +24,6 @@ let lightPreset = {
 	iataToggle: true,
 	statusToggle: true,
 	officeToggle: true,
-	mergeLinesToggle: true,
 	hideSegmentStatusToggle: true,
 	colorText: "#2E343B",
 	colorBg: "#FFFFFF",
@@ -44,7 +42,6 @@ let richPreset = {
 	iataToggle: true,
 	statusToggle: true,
 	officeToggle: true,
-	mergeLinesToggle: true,
 	hideSegmentStatusToggle: true,
 	colorText: "#CCB9CF",
 	colorBg: "#232743",
@@ -63,7 +60,6 @@ let cameoPreset = {
 	iataToggle: true,
 	statusToggle: true,
 	officeToggle: true,
-	mergeLinesToggle: true,
 	hideSegmentStatusToggle: true,
 	colorText: "#E8E8E8",
 	colorBg: "#3C3B39",
@@ -82,7 +78,6 @@ let highContrastDarkPreset = {
 	iataToggle: true,
 	statusToggle: true,
 	officeToggle: true,
-	mergeLinesToggle: true,
 	hideSegmentStatusToggle: true,
 	colorText: "#FFFFFF",
 	colorBg: "#000000",
@@ -142,11 +137,6 @@ document.getElementById("officeToggle").addEventListener("change", function () {
 	chrome.storage.sync.set({ "officeToggle": newValue });
 });
 
-document.getElementById("mergeLinesToggle").addEventListener("change", function () {
-	let newValue = this.checked;
-	chrome.storage.sync.set({ "mergeLinesToggle": newValue });
-});
-
 document.getElementById("hideSegmentStatusToggle").addEventListener("change", function () {
 	let newValue = this.checked;
 	chrome.storage.sync.set({ "hideSegmentStatusToggle": newValue });
@@ -195,14 +185,13 @@ document.getElementById("colorImportant").addEventListener("change", function ()
 
 // Function to load selected preset from Chrome Storage
 function loadPreset() {
-	chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "officeToggle", "mergeLinesToggle", "hideSegmentStatusToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
+	chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "officeToggle", "hideSegmentStatusToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
 		document.getElementById("switch").checked = result.switch || typeof result.switch === 'undefined' && darkPreset.switch;
 		document.getElementById("theme").value = result.theme || darkPreset.theme;
 		document.getElementById("classToggle").checked = result.classToggle || typeof result.classToggle === 'undefined' && darkPreset.classToggle;
 		document.getElementById("iataToggle").checked = result.iataToggle || typeof result.iataToggle === 'undefined' && darkPreset.iataToggle;
 		document.getElementById("statusToggle").checked = result.statusToggle || typeof result.statusToggle === 'undefined' && darkPreset.statusToggle;
 		document.getElementById("officeToggle").checked = result.officeToggle || typeof result.officeToggle === 'undefined' && darkPreset.officeToggle;
-		document.getElementById("mergeLinesToggle").checked = result.mergeLinesToggle || typeof result.mergeLinesToggle === 'undefined' && darkPreset.mergeLinesToggle;
 		document.getElementById("hideSegmentStatusToggle").checked = result.hideSegmentStatusToggle || typeof result.hideSegmentStatusToggle === 'undefined' && darkPreset.hideSegmentStatusToggle;
 		document.getElementById("colorText").value = result.colorText || darkPreset.colorText;
 		document.getElementById("colorBg").value = result.colorBg || darkPreset.colorBg;
