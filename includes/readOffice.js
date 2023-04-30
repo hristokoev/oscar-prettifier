@@ -1,14 +1,18 @@
 const getOffice = async (iataOfficeId, officeId, history) => {
-	const response = await fetch(`https://oscar.airfrance-is.com/oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=PV%2F${iataOfficeId}&numEmulator=1&officeId=${officeId}`);
+	const response = await fetch(`./oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=PV%2F${iataOfficeId}&numEmulator=1&officeId=${officeId}`);
 	const text = await response.text().then((data) => {
 		const parser = new DOMParser();
 		const xml = parser.parseFromString(data, "application/xml");
 		const el = xml.querySelector('crypticResponse1').innerHTML;
 		const result = el.match(/(?<=^NAM\*OFFICE\sNAME\s{6}\-\s)(.*)/gm);
 		return result;
-	})
+	}).catch((err) => {
+		return "Error: invalid fetch response";
+	});
 	// Make a call to last command from the history
-	await fetch(`https://oscar.airfrance-is.com/oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=${encodeURIComponent(history)}&numEmulator=1&officeId=${officeId}`);
+	await fetch(`./oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=${encodeURIComponent(history)}&numEmulator=1&officeId=${officeId}`).catch((err) => {
+		return "Error: invalid fetch response";
+	});
 	return text;
 }
 
