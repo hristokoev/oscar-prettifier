@@ -47,44 +47,6 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 	}
 	targets.forEach(function (target) {
 
-		// Event listener for changes in Chrome Storage
-		chrome.storage.onChanged.addListener(function (changes, namespace) {
-			observer.disconnect();
-			for (let key in changes) {
-				let newValue = changes[key].newValue;
-				switch (key) {
-					case "colorText":
-						document.querySelector('.hljs').style.color = newValue;
-						document.querySelectorAll('.popup').forEach((el) => el.style.color = newValue);
-						document.querySelectorAll('.popup').forEach((el) => el.style.borderColor = newValue);
-						break;
-					case "colorBg":
-						document.querySelector('.hljs').style.backgroundColor = newValue;
-						document.querySelectorAll('.popup').forEach((el) => el.style.backgroundColor = newValue);
-						break;
-					case "colorIndex":
-						document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red').forEach((el) => el.style.color = newValue);
-						break;
-					case "colorHighlight":
-						document.querySelectorAll('.hljs-flight, .hljs-flight-partner, .hljs-time, .hljs-date').forEach((el) => el.style.color = newValue);
-						break;
-					case "colorAirports":
-						document.querySelectorAll('.hljs-iata').forEach((el) => el.style.color = newValue);
-						break;
-					case "colorOffices":
-						document.querySelectorAll('.hljs-office-info').forEach((el) => el.style.color = newValue);
-						break;
-					case "colorContacts":
-						document.querySelectorAll('.hljs-contact-info').forEach((el) => el.style.color = newValue);
-						break;
-					case "colorImportant":
-						document.querySelectorAll('.hljs-message, .hljs-status.un').forEach((el) => el.style.color = newValue);
-						break;
-				}
-			}
-			observer.observe(target, config);
-		});
-
 		// Observer
 		let observer = new MutationObserver(function (mutations) {
 			mutations.forEach(function (mutation, index) {
@@ -99,7 +61,50 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				target.textContent = preprocessor(target.textContent, options);
 
 				// Highlight the text
-				hljs.highlightElement(target);
+				function highlightAndDoStuff(target, callback) {
+					hljs.highlightElement(target);
+					callback();
+				}
+
+				highlightAndDoStuff(target, function () {
+					// Event listener for changes in Chrome Storage
+					chrome.storage.onChanged.addListener(function (changes, namespace) {
+						observer.disconnect();
+						for (let key in changes) {
+							let newValue = changes[key].newValue;
+							switch (key) {
+								case "colorText":
+									document.querySelector('.hljs').style.color = newValue;
+									document.querySelectorAll('.popup').forEach((el) => el.style.color = newValue);
+									document.querySelectorAll('.popup').forEach((el) => el.style.borderColor = newValue);
+									break;
+								case "colorBg":
+									document.querySelector('.hljs').style.backgroundColor = newValue;
+									document.querySelectorAll('.popup').forEach((el) => el.style.backgroundColor = newValue);
+									break;
+								case "colorIndex":
+									document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red').forEach((el) => el.style.color = newValue);
+									break;
+								case "colorHighlight":
+									document.querySelectorAll('.hljs-flight, .hljs-flight-partner, .hljs-time, .hljs-date').forEach((el) => el.style.color = newValue);
+									break;
+								case "colorAirports":
+									document.querySelectorAll('.hljs-iata').forEach((el) => el.style.color = newValue);
+									break;
+								case "colorOffices":
+									document.querySelectorAll('.hljs-office-info').forEach((el) => el.style.color = newValue);
+									break;
+								case "colorContacts":
+									document.querySelectorAll('.hljs-contact-info').forEach((el) => el.style.color = newValue);
+									break;
+								case "colorImportant":
+									document.querySelectorAll('.hljs-message, .hljs-status.un').forEach((el) => el.style.color = newValue);
+									break;
+							}
+						}
+						observer.observe(target, config);
+					});
+				});
 
 				if (options.linesToggle) {
 					// Highlight lines
@@ -109,7 +114,7 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 					document.querySelectorAll('.highlight-line').forEach((el, index) => {
 						if (index == start) {
 							el.style.borderTop = "0.5px solid";
-							el.style.paddingTop = "10px"; 
+							el.style.paddingTop = "10px";
 							el.style.marginTop = "10px";
 						}
 						if (index == end) {
