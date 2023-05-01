@@ -108,8 +108,8 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 
 				if (options.linesToggle) {
 					// Highlight lines
-					let start = findIndex("000", target);
-					let end = findIndex("+0", target);
+					let start = findIndex("000", target, -1);
+					let end = findIndex("+0", target, -1);
 					hljs.initHighlightLinesOnLoad([]);
 					document.querySelectorAll('.highlight-line').forEach((el, index) => {
 						if (index == start) {
@@ -122,6 +122,21 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 							el.style.marginBottom = "10px";
 						}
 					});
+					let xsLines = [];
+					let firstLine = findIndex("XS:", target, -1);
+					while (firstLine != -1) {
+						xsLines.push(firstLine);
+						firstLine = findIndex("XS:", target, firstLine);
+					}
+					xsLines.forEach((el) => {
+						document.querySelectorAll('.highlight-line').forEach((line, index) => {
+							if (index == el) {
+								line.style.textDecoration = "line-through 0.5px solid";
+								line.style.opacity = "0.75";
+							}
+						});
+					});
+					console.log(xsLines);
 				}
 
 				// Apply the theme
