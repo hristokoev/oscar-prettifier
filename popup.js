@@ -25,6 +25,19 @@ let lightPreset = {
 	colorImportant: "#FF0000"
 }
 
+let light2Preset = {
+	theme: "light2",
+	colorText: "#4B6A88",
+	colorBg: "#FFFFFF",
+	colorIndex: "#3455DB",
+	colorHighlight: "#00AA00",
+	colorAirports: "#00AA00",
+	colorOffices: "#1E90FF",
+	colorContacts: "#F64747",
+	colorImportant: "#F64747"
+}
+
+
 let richPreset = {
 	theme: "rich",
 	colorText: "#CCB9CF",
@@ -73,6 +86,18 @@ let matrixPreset = {
 	colorImportant: "#F57066"
 }
 
+let highContrastLightPreset = {
+	theme: "highContrastLight",
+	colorText: "#000000",
+	colorBg: "#FFFFFF",
+	colorIndex: "#000000",
+	colorHighlight: "#000000",
+	colorAirports: "#000000",
+	colorOffices: "#00FFFF",
+	colorContacts: "#FF2600",
+	colorImportant: "#FF2600"
+}
+
 let highContrastDarkPreset = {
 	theme: "highContrastDark",
 	colorText: "#FFFFFF",
@@ -95,6 +120,9 @@ document.getElementById("theme").addEventListener("change", function () {
 		case "light":
 			chrome.storage.sync.set(lightPreset);
 			break;
+		case "light2":
+			chrome.storage.sync.set(light2Preset);
+			break;
 		case "rich":
 			chrome.storage.sync.set(richPreset);
 			break;
@@ -106,6 +134,9 @@ document.getElementById("theme").addEventListener("change", function () {
 			break;
 		case "matrix":
 			chrome.storage.sync.set(matrixPreset);
+			break;
+		case "highContrastLight":
+			chrome.storage.sync.set(highContrastLightPreset);
 			break;
 		case "highContrastDark":
 			chrome.storage.sync.set(highContrastDarkPreset);

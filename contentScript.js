@@ -164,6 +164,8 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				options.iataToggle && HLJS_Iata_El.forEach((el) => {
 					readIata(el);
 					el.style.cursor = "pointer";
+				});
+				HLJS_Iata_El.forEach((el) => {
 					el.style.color = options.colorAirports;
 				});
 				options.statusToggle && HLJS_Stats_El.forEach((el) => {
@@ -173,6 +175,9 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				options.officeToggle && HLJS_Office_El.forEach((el) => {
 					readOffice(el, DOM_History_El, DOM_Office_El);
 					el.style.cursor = "pointer";
+					el.style.color = options.colorOffices;
+				});
+				HLJS_Office_El.forEach((el) => {
 					el.style.color = options.colorOffices;
 				});
 				HLJS_Highlighted_El.forEach((el) => {
