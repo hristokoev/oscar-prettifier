@@ -138,7 +138,6 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 							}
 						});
 					});
-					console.log(xsLines);
 				}
 
 				// Apply the theme
