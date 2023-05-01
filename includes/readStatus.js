@@ -4,7 +4,7 @@ const readStatus = (status) => {
 	const clone = status.cloneNode(true);
 	const parent = status.parentNode;
 	const container = document.createElement('div');
-	clone.textContent = `${STATUS[statusText]} for ${pax} ${pax == '1' ? "pap" : "pax"}` || "Unknown status code, check Ask";
+	clone.textContent = `${STATUS[statusText]} for ${pax} ${pax == '1' ? "PAP" : "PAX"}` || "Unknown status code, check Ask";
 	clone.className = 'popup';
 	parent.replaceChild(container, status);
 	container.className = 'container';

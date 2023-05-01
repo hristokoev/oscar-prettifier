@@ -77,16 +77,18 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 									document.querySelector('.hljs').style.color = newValue;
 									document.querySelectorAll('.popup').forEach((el) => el.style.color = newValue);
 									document.querySelectorAll('.popup').forEach((el) => el.style.borderColor = newValue);
+									document.querySelectorAll('.hljs-date').forEach((el) => el.style.backgroundColor = newValue);
 									break;
 								case "colorBg":
 									document.querySelector('.hljs').style.backgroundColor = newValue;
 									document.querySelectorAll('.popup').forEach((el) => el.style.backgroundColor = newValue);
+									document.querySelectorAll('.hljs-date').forEach((el) => el.style.color = newValue);
 									break;
 								case "colorIndex":
 									document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red').forEach((el) => el.style.color = newValue);
 									break;
 								case "colorHighlight":
-									document.querySelectorAll('.hljs-flight, .hljs-flight-partner, .hljs-time, .hljs-date').forEach((el) => el.style.color = newValue);
+									document.querySelectorAll('.hljs-flight, .hljs-flight-partner, .hljs-time').forEach((el) => el.style.color = newValue);
 									break;
 								case "colorAirports":
 									document.querySelectorAll('.hljs-iata').forEach((el) => el.style.color = newValue);
@@ -145,7 +147,8 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				const HLJS_Iata_El = document.querySelectorAll('.hljs-iata');
 				const HLJS_Stats_El = document.querySelectorAll('.hljs-status');
 				const HLJS_Office_El = document.querySelectorAll('.hljs-office-info');
-				const HLJS_Highlighted_El = document.querySelectorAll('.hljs-flight, .hljs-flight-partner, .hljs-time, .hljs-date');
+				const HLJS_Highlighted_El = document.querySelectorAll('.hljs-flight, .hljs-flight-partner, .hljs-time');
+				const HLJS_Date_El = document.querySelectorAll('.hljs-date');
 				const HLJS_Index_El = document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red');
 				const HLJS_Contacts_El = document.querySelectorAll('.hljs-contact-info');
 				const HLJS_Important_El = document.querySelectorAll('.hljs-message, .hljs-status.un');
@@ -175,6 +178,10 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				});
 				HLJS_Highlighted_El.forEach((el) => {
 					el.style.color = options.colorHighlight;
+				});
+				HLJS_Date_El.forEach((el) => {
+					el.style.color = options.colorBg;
+					el.style.backgroundColor = options.colorText;
 				});
 				HLJS_Index_El.forEach((el) => {
 					el.style.color = options.colorIndex;

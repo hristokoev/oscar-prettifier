@@ -61,6 +61,18 @@ let mutedBluePreset = {
 	colorImportant: "#F57066"
 }
 
+let matrixPreset = {
+	theme: "matrix",
+	colorText: "#22B455",
+	colorBg: "#020204",
+	colorIndex: "#22B455",
+	colorHighlight: "#80CE87",
+	colorAirports: "#92E5A1",
+	colorOffices: "#D4D4D4",
+	colorContacts: "#D4D4D4",
+	colorImportant: "#F57066"
+}
+
 let highContrastDarkPreset = {
 	theme: "highContrastDark",
 	colorText: "#FFFFFF",
@@ -91,6 +103,9 @@ document.getElementById("theme").addEventListener("change", function () {
 			break;
 		case "mutedBlue":
 			chrome.storage.sync.set(mutedBluePreset);
+			break;
+		case "matrix":
+			chrome.storage.sync.set(matrixPreset);
 			break;
 		case "highContrastDark":
 			chrome.storage.sync.set(highContrastDarkPreset);
