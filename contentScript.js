@@ -20,7 +20,7 @@ let defaultOptions = {
 }
 
 // Target these HTML elements
-let targets = document.querySelectorAll('#crypticResponse1, #crypticResponse2');
+let targets = document.querySelectorAll('#crypticResponse1');
 
 // HLJS Configuration
 let config = {
@@ -46,7 +46,7 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 		options = result;
 	}
 	targets.forEach(function (target) {
-
+		target.className += ' hristo';
 		// Observer
 		let observer = new MutationObserver(function (mutations) {
 			mutations.forEach(function (mutation, index) {
@@ -62,8 +62,10 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 
 				// Highlight the text
 				function highlightAndDoStuff(target, callback) {
-					hljs.highlightElement(target);
-					callback();
+					// if (DOM_History_El.value.includes("RPP") || DOM_History_El.value.includes("RT") || DOM_History_El.value.includes("RH")) {
+						hljs.highlightElement(target);
+						callback();
+					// }
 				}
 
 				highlightAndDoStuff(target, function () {
@@ -81,6 +83,7 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 									break;
 								case "colorBg":
 									document.querySelector('.hljs').style.backgroundColor = newValue;
+									document.querySelector('.hljs').parentNode.style.backgroundColor = newValue;
 									document.querySelectorAll('.popup').forEach((el) => el.style.backgroundColor = newValue);
 									document.querySelectorAll('.hljs-date').forEach((el) => el.style.color = newValue);
 									break;
@@ -110,7 +113,7 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 
 				if (options.linesToggle) {
 					// Highlight lines
-					let start = findIndex("000", target, -1);
+					let start = findIndex("    000 ", target, -1);
 					let end = findIndex("+0", target, -1);
 					hljs.initHighlightLinesOnLoad([]);
 					document.querySelectorAll('.highlight-line').forEach((el, index) => {
@@ -141,67 +144,70 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				}
 
 				// Apply the theme
-				const HLJS_Class_El = document.querySelectorAll('.hljs-class');
-				const HLJS_Class_P_El = document.querySelectorAll('.hljs-class-partner');
-				const HLJS_Iata_El = document.querySelectorAll('.hljs-iata');
-				const HLJS_Stats_El = document.querySelectorAll('.hljs-status');
-				const HLJS_Office_El = document.querySelectorAll('.hljs-office-info');
-				const HLJS_Highlighted_El = document.querySelectorAll('.hljs-flight, .hljs-flight-partner, .hljs-time');
-				const HLJS_Date_El = document.querySelectorAll('.hljs-date');
-				const HLJS_Index_El = document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red');
-				const HLJS_Contacts_El = document.querySelectorAll('.hljs-contact-info');
-				const HLJS_Important_El = document.querySelectorAll('.hljs-message, .hljs-status.un');
-				document.querySelector('.hljs').style.color = options.colorText;
-				document.querySelector('.hljs').style.backgroundColor = options.colorBg;
-				options.classToggle && HLJS_Class_El.forEach((el) => {
-					readClass(el, false);
-					el.style.cursor = "pointer";
-				});
-				options.classToggle && HLJS_Class_P_El.forEach((el) => {
-					readClass(el, true);
-					el.style.cursor = "pointer";
-				});
-				options.iataToggle && HLJS_Iata_El.forEach((el) => {
-					readIata(el);
-					el.style.cursor = "pointer";
-				});
-				HLJS_Iata_El.forEach((el) => {
-					el.style.color = options.colorAirports;
-				});
-				options.statusToggle && HLJS_Stats_El.forEach((el) => {
-					readStatus(el);
-					el.style.cursor = "pointer";
-				});
-				options.officeToggle && HLJS_Office_El.forEach((el) => {
-					readOffice(el, DOM_History_El, DOM_Office_El);
-					el.style.cursor = "pointer";
-					el.style.color = options.colorOffices;
-				});
-				HLJS_Office_El.forEach((el) => {
-					el.style.color = options.colorOffices;
-				});
-				HLJS_Highlighted_El.forEach((el) => {
-					el.style.color = options.colorHighlight;
-				});
-				HLJS_Date_El.forEach((el) => {
-					el.style.color = options.colorBg;
-					el.style.backgroundColor = options.colorText;
-				});
-				HLJS_Index_El.forEach((el) => {
-					el.style.color = options.colorIndex;
-				});
-				HLJS_Contacts_El.forEach((el) => {
-					el.style.color = options.colorContacts;
-				});
-				HLJS_Important_El.forEach((el) => {
-					el.style.color = options.colorImportant;
-				});
-				const HLJS_Popup_El = document.querySelectorAll('.popup');
-				HLJS_Popup_El.forEach((el) => {
-					el.style.color = options.colorText;
-					el.style.backgroundColor = options.colorBg;
-					el.style.borderColor = options.colorText;
-				});
+				// if (DOM_History_El.value.includes("RPP") || DOM_History_El.value.includes("RT") || DOM_History_El.value.includes("RH")) {
+					const HLJS_Class_El = document.querySelectorAll('.hljs-class');
+					const HLJS_Class_P_El = document.querySelectorAll('.hljs-class-partner');
+					const HLJS_Iata_El = document.querySelectorAll('.hljs-iata');
+					const HLJS_Stats_El = document.querySelectorAll('.hljs-status');
+					const HLJS_Office_El = document.querySelectorAll('.hljs-office-info');
+					const HLJS_Highlighted_El = document.querySelectorAll('.hljs-flight, .hljs-flight-partner, .hljs-time');
+					const HLJS_Date_El = document.querySelectorAll('.hljs-date');
+					const HLJS_Index_El = document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red');
+					const HLJS_Contacts_El = document.querySelectorAll('.hljs-contact-info');
+					const HLJS_Important_El = document.querySelectorAll('.hljs-message, .hljs-status.un');
+					document.querySelector('.hljs').style.color = options.colorText;
+					document.querySelector('.hljs').style.backgroundColor = options.colorBg;
+					document.querySelector('.hljs').parentNode.style.backgroundColor = options.colorBg;
+					options.classToggle && HLJS_Class_El.forEach((el) => {
+						readClass(el, false);
+						el.style.cursor = "pointer";
+					});
+					options.classToggle && HLJS_Class_P_El.forEach((el) => {
+						readClass(el, true);
+						el.style.cursor = "pointer";
+					});
+					options.iataToggle && HLJS_Iata_El.forEach((el) => {
+						readIata(el);
+						el.style.cursor = "pointer";
+					});
+					HLJS_Iata_El.forEach((el) => {
+						el.style.color = options.colorAirports;
+					});
+					options.statusToggle && HLJS_Stats_El.forEach((el) => {
+						readStatus(el);
+						el.style.cursor = "pointer";
+					});
+					options.officeToggle && HLJS_Office_El.forEach((el) => {
+						readOffice(el, DOM_History_El, DOM_Office_El);
+						el.style.cursor = "pointer";
+						el.style.color = options.colorOffices;
+					});
+					HLJS_Office_El.forEach((el) => {
+						el.style.color = options.colorOffices;
+					});
+					HLJS_Highlighted_El.forEach((el) => {
+						el.style.color = options.colorHighlight;
+					});
+					HLJS_Date_El.forEach((el) => {
+						el.style.color = options.colorBg;
+						el.style.backgroundColor = options.colorText;
+					});
+					HLJS_Index_El.forEach((el) => {
+						el.style.color = options.colorIndex;
+					});
+					HLJS_Contacts_El.forEach((el) => {
+						el.style.color = options.colorContacts;
+					});
+					HLJS_Important_El.forEach((el) => {
+						el.style.color = options.colorImportant;
+					});
+					const HLJS_Popup_El = document.querySelectorAll('.popup');
+					HLJS_Popup_El.forEach((el) => {
+						el.style.color = options.colorText;
+						el.style.backgroundColor = options.colorBg;
+						el.style.borderColor = options.colorText;
+					});
+				// }
 
 				// Reconnect the observer
 				observer.observe(target, config);
@@ -210,10 +216,5 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 
 		// Start observing
 		options.switch && observer.observe(target, config);
-
-		// Trigger the observer
-		setTimeout(function () {
-			target.textContent += " ";
-		}, 10);
 	});
 });

@@ -5,9 +5,9 @@ const language = [
 	...LANG_INDEX,
 	...LANG_FLIGHT,
 	...LANG_CLASS,
+	...LANG_IATA,
 	...LANG_TIME,
 	...LANG_DATE,
-	...LANG_IATA,
 	...LANG_CONTACT,
 	...LANG_MESSAGE,
 	...LANG_STATUS
