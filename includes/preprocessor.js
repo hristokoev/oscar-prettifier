@@ -3,7 +3,7 @@ const preprocessor = (text, options) => {
 	let flag = true;
 	while (flag) {
 		flag = false;
-		text = text.replace(/^(?!RP)(.+)((\r\n        )|(\r\n      ))/gm, function (match, p1) { flag = true; return p1 });
+		text = text.replace(/^(?!RP)(.+)((\r?\n        )|(\r?\n      ))/gm, function (match, p1) { flag = true; return p1 });
 	}
 
 	// Separating the time from the rest of the text

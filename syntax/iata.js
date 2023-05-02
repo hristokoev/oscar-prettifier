@@ -15,6 +15,6 @@ const LANG_IATA = [
 	{
 		// IATA OFFICE ID
 		className: 'office-info',
-		begin: /(?<=CR\-[A-Z0-9]{9}\s)[0-9]{8}/
+		begin: /CR\-[A-Z0-9]{9} [0-9]{8}/
 	}
 ];

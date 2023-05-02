@@ -113,19 +113,32 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 
 				if (options.linesToggle) {
 					// Highlight lines
-					let start = findIndex("    000 ", target, -1);
-					let end = findIndex("+0", target, -1);
+					// let start = findIndex("    000 ", target, -1);
+					// let end = findIndex("+0", target, -1);
 					hljs.initHighlightLinesOnLoad([]);
-					document.querySelectorAll('.highlight-line').forEach((el, index) => {
-						if (index == start) {
-							el.style.borderTop = "0.5px solid";
-							el.style.paddingTop = "10px";
-							el.style.marginTop = "10px";
-						}
-						if (index == end) {
-							el.style.borderBottom = "0.5px solid";
-							el.style.marginBottom = "10px";
-						}
+					// document.querySelectorAll('.highlight-line').forEach((el, index) => {
+					// 	if (index == start) {
+					// 		el.style.borderTop = "0.5px solid";
+					// 		el.style.paddingTop = "10px";
+					// 		el.style.marginTop = "10px";
+					// 	}
+					// 	if (index == end) {
+					// 		el.style.borderBottom = "0.5px solid";
+					// 		el.style.marginBottom = "10px";
+					// 	}
+					// });
+					let endLines = [];
+					let endLine = findIndex("UTC+0", target, -1);
+					while (endLine != -1) {
+						endLines.push(endLine);
+						endLine = findIndex("UTC+", target, endLine);
+					}
+					endLines.forEach((el) => {
+						document.querySelectorAll('.highlight-line').forEach((line, index) => {
+							if (index == el) {
+								line.style.borderBottom = "0.5px solid";
+							}
+						});
 					});
 					let xsLines = [];
 					let firstLine = findIndex("XS:", target, -1);
@@ -179,7 +192,7 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 					});
 					options.officeToggle && HLJS_Office_El.forEach((el) => {
 						readOffice(el, DOM_History_El, DOM_Office_El);
-						el.style.cursor = "pointer";
+						// el.style.cursor = "pointer";
 						el.style.color = options.colorOffices;
 					});
 					HLJS_Office_El.forEach((el) => {
@@ -216,5 +229,10 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 
 		// Start observing
 		options.switch && observer.observe(target, config);
+
+		// Trigger the observer
+		setTimeout(function () {
+			target.textContent += " ";
+		}, 10);
 	});
 });

@@ -14,17 +14,8 @@ const getOffice = async (iataOfficeId, officeId, history) => {
 	return text;
 }
 
-const readOffice = (office, officeEl, historyEl) => {
-	const clone = office.cloneNode(true);
-	const parent = office.parentNode;
-	const container = document.createElement('div');
-	clone.textContent = "Loading...";
-	office.addEventListener('mouseover', async function () {
-		clone.textContent = await getOffice(office.textContent, officeEl.value, historyEl.value);
-	});
-	clone.className = 'popup';
-	parent.replaceChild(container, office);
-	container.className = 'container';
-	container.appendChild(office);
-	container.appendChild(clone);
+const readOffice = async (office, officeEl, historyEl) => {
+	// office.textContent = `[${officeEl.value}]`;
+	let officeId = office.textContent.split(' ')[1];
+	office.textContent = await getOffice(officeId, officeEl.value, historyEl.value);
 }
