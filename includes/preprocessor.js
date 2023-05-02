@@ -3,7 +3,7 @@ const preprocessor = (text, options) => {
 	let flag = true;
 	while (flag) {
 		flag = false;
-		text = text.replace(/^(?!RP)(.+)((\n        )|(\n      ))/gm, function (match, p1) { flag = true; return p1 });
+		text = text.replace(/^(?!RP)(.+)((\r\n        )|(\r\n      ))/gm, function (match, p1) { flag = true; return p1 });
 	}
 
 	// Separating the time from the rest of the text
@@ -23,10 +23,10 @@ const preprocessor = (text, options) => {
 	// Separate IATAs
 	text = text.replace(/((?<= [0-9] )[A-Z]{3}(?=[A-Z]{3} ))((?<= [0-9] [A-Z]{3})[A-Z]{3}(?= ))/gi, (match, p1, p2) => `${p1} ${p2}`);
 
-	// Separate hours and minutes
-	text = text.replace(/(?<=[A-Z]{3} [A-Z]{3} [A-Z]{2}[0-9]{1,2} )([0-9]{2})([0-9]{2}) ([0-9]{2})([0-9]{2})(\+1)?/gi,
-		(match, hh1, mm1, hh2, mm2, plus) => `${hh1}:${mm1} ${hh2}:${mm2}${plus ? plus : ''}`
-	);
+	// // Separate hours and minutes
+	// text = text.replace(/(?<=[A-Z]{3} [A-Z]{3} [A-Z]{2}[0-9]{1,2} )([0-9]{2})([0-9]{2}) ([0-9]{2})([0-9]{2})(\+1)?/gi,
+	// 	(match, hh1, mm1, hh2, mm2, plus) => `${hh1}:${mm1} ${hh2}:${mm2}${plus ? plus : ''}`
+	// );
 
 	return text;
 };
