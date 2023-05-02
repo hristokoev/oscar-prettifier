@@ -57,14 +57,16 @@
 			]
 		}
 	],
+	"background": {
+		"service_worker": "background.js"
+	},
 	"web_accessible_resources": [
 		{
 			"matches": [
 				"https://oscar.airfrance-is.com/*",
 				"<all_urls>"
 			],
-			"resources": [
-			]
+			"resources": []
 		}
 	]
 }
