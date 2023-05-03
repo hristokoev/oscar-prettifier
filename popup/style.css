@@ -17,7 +17,8 @@ body {
 	width: 380px;
 }
 
-.app {
+.app,
+.notOscar {
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -190,6 +191,20 @@ input[type=color] {
 
 #reload:hover {
 	background: #d01c1c;
+	color: #fff;
+}
+
+.oscarLink {
+	margin-block: 20px;
+	background: #4bb619;
+	color: #fff;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.oscarLink:hover {
+	background: #3b8e14;
 	color: #fff;
 }
 

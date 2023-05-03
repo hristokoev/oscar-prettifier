@@ -270,7 +270,24 @@ document.getElementById("resetButton").addEventListener("click", function () {
 
 // Reset
 document.getElementById("reload").addEventListener("click", function () {
-	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-		chrome.tabs.sendMessage(tabs[0].id, {url: '/'});
+	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+		chrome.tabs.sendMessage(tabs[0].id, { url: '/' });
 	});
+});
+
+// Open OSCAR
+document.querySelector(".oscarLink").addEventListener("click", function () {
+	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+		chrome.tabs.sendMessage(tabs[0].id, { url: 'https://oscar.airfrance-is.com/' });
+	});
+});
+
+chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+	if (tabs[0].url.includes("https://oscar.airfrance-is.com/")) {
+		document.querySelector(".app").style.display = "block";
+		document.querySelector(".notOscar").style.display = "none";
+	} else {
+		document.querySelector(".app").style.display = "none";
+		document.querySelector(".notOscar").style.display = "flex";
+	}
 });
