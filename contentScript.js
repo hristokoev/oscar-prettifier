@@ -1,9 +1,3 @@
-// Send a message to the background script to call the API
-chrome.runtime.sendMessage({ action: 'callApi' }, response => {
-	// Log the response from the API
-	console.log(response);
-});
-
 // Options
 let options = {};
 let defaultOptions = {
@@ -44,6 +38,44 @@ hljs.registerLanguage('hristo', function () {
 	}
 });
 
+let updateChanges = (changes) => {
+	for (let key in changes) {
+		let newValue = changes[key].newValue;
+		switch (key) {
+			case "colorText":
+				document.querySelector('.hljs').style.color = newValue;
+				document.querySelectorAll('.popup').forEach((el) => el.style.color = newValue);
+				document.querySelectorAll('.popup').forEach((el) => el.style.borderColor = newValue);
+				document.querySelectorAll('.hljs-date').forEach((el) => el.style.backgroundColor = newValue);
+				break;
+			case "colorBg":
+				document.querySelector('.hljs').style.backgroundColor = newValue;
+				document.querySelector('.hljs').parentNode.style.backgroundColor = newValue;
+				document.querySelectorAll('.popup').forEach((el) => el.style.backgroundColor = newValue);
+				document.querySelectorAll('.hljs-date').forEach((el) => el.style.color = newValue);
+				break;
+			case "colorIndex":
+				document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red').forEach((el) => el.style.color = newValue);
+				break;
+			case "colorHighlight":
+				document.querySelectorAll('.hljs-flight, .hljs-flight-partner, .hljs-time').forEach((el) => el.style.color = newValue);
+				break;
+			case "colorAirports":
+				document.querySelectorAll('.hljs-iata').forEach((el) => el.style.color = newValue);
+				break;
+			case "colorOffices":
+				document.querySelectorAll('.hljs-office-info').forEach((el) => el.style.color = newValue);
+				break;
+			case "colorContacts":
+				document.querySelectorAll('.hljs-contact-info').forEach((el) => el.style.color = newValue);
+				break;
+			case "colorImportant":
+				document.querySelectorAll('.hljs-message, .hljs-status.un').forEach((el) => el.style.color = newValue);
+				break;
+		}
+	};
+}
+
 chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "officeToggle", "hideSegmentStatusToggle", "linesToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
 	if (Object.keys(result).length === 0 && result.constructor === Object) {
 		chrome.storage.sync.set(defaultOptions);
@@ -70,69 +102,28 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 				function highlightAndDoStuff(target, callback) {
 					// if (DOM_History_El.value.includes("RPP") || DOM_History_El.value.includes("RT") || DOM_History_El.value.includes("RH")) {
 					hljs.highlightElement(target);
+					chrome.storage.onChanged.removeListener(updateChangesOn);
 					callback();
 					// }
 				}
 
 				highlightAndDoStuff(target, function () {
+					// Update changes
+					console.log("Update changes start");
+					let optionsConverted = Object.fromEntries(Object.entries(options).filter(([key]) => key.includes('color') || key.includes('theme')));
+					for (const [key, value] of Object.entries(optionsConverted)) {
+						optionsConverted[key] = {"newValue": value};
+					}
+					console.log(optionsConverted);
+					updateChanges(optionsConverted);
+					console.log("Update changes end");
 					// Event listener for changes in Chrome Storage
-					chrome.storage.onChanged.addListener(function (changes, namespace) {
-						observer.disconnect();
-						for (let key in changes) {
-							let newValue = changes[key].newValue;
-							switch (key) {
-								case "colorText":
-									document.querySelector('.hljs').style.color = newValue;
-									document.querySelectorAll('.popup').forEach((el) => el.style.color = newValue);
-									document.querySelectorAll('.popup').forEach((el) => el.style.borderColor = newValue);
-									document.querySelectorAll('.hljs-date').forEach((el) => el.style.backgroundColor = newValue);
-									break;
-								case "colorBg":
-									document.querySelector('.hljs').style.backgroundColor = newValue;
-									document.querySelector('.hljs').parentNode.style.backgroundColor = newValue;
-									document.querySelectorAll('.popup').forEach((el) => el.style.backgroundColor = newValue);
-									document.querySelectorAll('.hljs-date').forEach((el) => el.style.color = newValue);
-									break;
-								case "colorIndex":
-									document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red').forEach((el) => el.style.color = newValue);
-									break;
-								case "colorHighlight":
-									document.querySelectorAll('.hljs-flight, .hljs-flight-partner, .hljs-time').forEach((el) => el.style.color = newValue);
-									break;
-								case "colorAirports":
-									document.querySelectorAll('.hljs-iata').forEach((el) => el.style.color = newValue);
-									break;
-								case "colorOffices":
-									document.querySelectorAll('.hljs-office-info').forEach((el) => el.style.color = newValue);
-									break;
-								case "colorContacts":
-									document.querySelectorAll('.hljs-contact-info').forEach((el) => el.style.color = newValue);
-									break;
-								case "colorImportant":
-									document.querySelectorAll('.hljs-message, .hljs-status.un').forEach((el) => el.style.color = newValue);
-									break;
-							}
-						}
-						observer.observe(target, config);
-					});
+					chrome.storage.onChanged.addListener(updateChangesOn);
 				});
 
 				if (options.linesToggle) {
 					// Highlight lines
-					// let start = findIndex("    000 ", target, -1);
-					// let end = findIndex("+0", target, -1);
 					hljs.initHighlightLinesOnLoad([]);
-					// document.querySelectorAll('.highlight-line').forEach((el, index) => {
-					// 	if (index == start) {
-					// 		el.style.borderTop = "0.5px solid";
-					// 		el.style.paddingTop = "10px";
-					// 		el.style.marginTop = "10px";
-					// 	}
-					// 	if (index == end) {
-					// 		el.style.borderBottom = "0.5px solid";
-					// 		el.style.marginBottom = "10px";
-					// 	}
-					// });
 					let endLines = [];
 					let endLine = findIndex("UTC+0", target, -1);
 					while (endLine != -1) {
@@ -197,7 +188,13 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 					el.style.cursor = "pointer";
 				});
 				options.officeToggle && HLJS_Office_El.forEach((el) => {
-					readOffice(el, DOM_History_El, DOM_Office_El);
+					let iata = el.textContent.split(' ')[1];
+					let office = DOM_Office_El.value;
+					chrome.runtime.sendMessage({ action: 'callApi', iata: iata, office: office }, response => {
+						// Log the response from the API
+						console.log(response);
+					});
+					// readOffice(el, DOM_History_El, DOM_Office_El);
 					// el.style.cursor = "pointer";
 					el.style.color = options.colorOffices;
 				});
@@ -233,12 +230,19 @@ chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "status
 			});
 		});
 
+		let updateChangesOn = (changes) => {
+			observer.disconnect();
+			console.log(changes);
+			updateChanges(changes);
+			observer.observe(target, config);
+		}
+
 		// Start observing
 		options.switch && observer.observe(target, config);
 
-		// Trigger the observer
-		setTimeout(function () {
-			target.textContent += " ";
-		}, 10);
+		// // Trigger the observer
+		// setTimeout(function () {
+		// 	target.textContent += " ";
+		// }, 10);
 	});
 });
