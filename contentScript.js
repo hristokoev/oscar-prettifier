@@ -8,7 +8,7 @@ let defaultOptions = {
 	statusToggle: true,
 	officeToggle: true,
 	hideSegmentStatusToggle: true,
-	linesToggle: false,
+	linesToggle: true,
 	colorText: "#adbbbc",
 	colorBg: "#22272e",
 	colorIndex: "#8dd881",
@@ -139,7 +139,6 @@ const observer = new MutationObserver(function (mutations) {
 				chrome.runtime.sendMessage({ action: 'callApi', iata: iata, office: office }, response => {
 					el.textContent = response;
 				});
-				el.style.cursor = "pointer";
 				el.style.color = options.colorOffices;
 			});
 			HLJS_Office_El.forEach((el) => el.style.color = options.colorOffices);

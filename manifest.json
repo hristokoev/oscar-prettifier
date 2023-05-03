@@ -2,7 +2,11 @@
 	"name": "OSCAR Prettifier by H. Koev",
 	"action": {
 		"default_icon": {
-			"128": "images/icon128.png"
+			"128": "images/128.png",
+			"64": "images/64.png",
+			"48": "images/48.png",
+			"32": "images/32.png",
+			"16": "images/16.png"
 		},
 		"default_popup": "popup.html",
 		"default_title": "OSCAR Prettifier by H. Koev"
