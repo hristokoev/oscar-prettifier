@@ -32,7 +32,6 @@
 				"includes/preprocessor.js",
 				"includes/readClass.js",
 				"includes/readIata.js",
-				"includes/readOffice.js",
 				"includes/readStatus.js",
 				"includes/replaceAsync.js",
 				"includes/updateChanges.js",

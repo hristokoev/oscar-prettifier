@@ -185,6 +185,12 @@ input[type=color] {
 	color: #fff;
 	padding: 10px 20px;
 	border-radius: 5px;
+	cursor: pointer;
+}
+
+#reload:hover {
+	background: #d01c1c;
+	color: #fff;
 }
 
 /*# sourceMappingURL=popup.css.map*/

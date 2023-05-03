@@ -137,10 +137,8 @@ const observer = new MutationObserver(function (mutations) {
 				let iata = el.textContent.split(' ')[1];
 				let office = DOM_Office_El.value;
 				chrome.runtime.sendMessage({ action: 'callApi', iata: iata, office: office }, response => {
-					// Log the response from the API
-					console.log(response);
+					el.textContent = response;
 				});
-				// readOffice(el, DOM_History_El, DOM_Office_El);
 				el.style.cursor = "pointer";
 				el.style.color = options.colorOffices;
 			});
@@ -162,6 +160,13 @@ const observer = new MutationObserver(function (mutations) {
 			observer.observe(target, config);
 		});
 	});
+});
+
+// Reload the page
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+	if (message.url) {
+		window.location.href = message.url;
+	}
 });
 
 // Start observing

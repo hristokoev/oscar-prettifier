@@ -12,15 +12,15 @@ const readClass = (flightClass, partner) => {
 			case "Business":
 				flightClass.textContent = `BIZ ${classText}`;
 				break;
-			case "La Première":
+			case "Economy (Europe) or La Première (Intercontinental)":
 				flightClass.textContent = `E/1 ${classText}`;
 				break;
-			case "Premium Comfort":
+			case "Economy (Europe) or Premium Comfort (Intercontinental)":
 				flightClass.textContent = `E/P ${classText}`;
 				break;
 		}
 	} else {
-		flightClass.textContent = `UNK ${classText}`;
+		flightClass.textContent = `    ${classText}`;
 	}
 	clone.className = 'popup';
 	parent.replaceChild(container, flightClass);

@@ -1,11 +1,14 @@
+// https://oscar.airfrance-is.com/oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=PV%2F${iataOfficeId}&numEmulator=1&officeId=${officeId}
+// /(?<=^NAM\*OFFICE\sNAME\s{6}\-\s)(.*)/gm
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	if (message.action === 'callApi') {
 		// Make a request to a random API
-		fetch('https://official-joke-api.appspot.com/random_joke')
-			.then(response => response.json())
+		fetch('https://randomuser.me/api/?format=xml')
+			.then(response => response.text())
 			.then(data => {
-				// Send the API response back to the content script
-				sendResponse(data);
+				let match = data.match(/(?<=\<name\>).*(?=\<\/name\>)/);
+				sendResponse(match);
 			})
 			.catch(error => {
 				console.error(error);

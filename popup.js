@@ -267,3 +267,10 @@ document.getElementById("resetButton").addEventListener("click", function () {
 	chrome.storage.sync.set(darkPreset);
 	loadPreset();
 });
+
+// Reset
+document.getElementById("reload").addEventListener("click", function () {
+	chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+		chrome.tabs.sendMessage(tabs[0].id, {url: '/'});
+	});
+});
