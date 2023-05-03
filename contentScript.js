@@ -170,8 +170,3 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 // Start observing
 observer.observe(target, config);
-
-// Trigger the observer
-setTimeout(function () {
-	target.textContent += " ";
-}, 10);
