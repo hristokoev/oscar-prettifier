@@ -1,5 +1,7 @@
 // Options
-let options = {};
+let options = {
+	switch: true,
+};
 let defaultOptions = {
 	switch: true,
 	theme: "dark",
@@ -19,7 +21,7 @@ let defaultOptions = {
 	colorImportant: "#f57066"
 }
 
-// Target this HTML elements
+// Target this HTML element
 const target = document.getElementById('crypticResponse1');
 
 // HLJS Configuration
@@ -31,14 +33,14 @@ const config = {
 };
 
 // HLJS Register Language
-hljs.registerLanguage('hristo', function () {
+hljs.registerLanguage('oscar', function () {
 	return {
 		case_insensitive: true,
 		contains: language
 	}
 });
 
-target.className += ' hristo';
+target.className += ' oscar';
 
 // Observer
 const observer = new MutationObserver(function (mutations) {
@@ -68,6 +70,7 @@ const observer = new MutationObserver(function (mutations) {
 				callback();
 			}
 
+			// Limit to these commands
 			if (containsMultiple(DOM_History_El.value, ["PV", "RPP/RLC", "RT", "RPP/RHA", "RHA"], ["MD", "MU", "MT", "MB", "PLD"])) {
 					// Preprocess the text
 					target.textContent = preprocessor(target.textContent, options);
@@ -85,17 +88,32 @@ const observer = new MutationObserver(function (mutations) {
 
 					// Highlight lines
 					hljs.initHighlightLinesOnLoad([]);
+
 					let xsLines = [];
-					let firstLine = findIndex("XS:", target, -1);
-					while (firstLine != -1) {
-						xsLines.push(firstLine);
-						firstLine = findIndex("XS:", target, firstLine);
+					let dlLines = [];
+					let firstXSLine = findIndex("XS:", target, -1);
+					let firstDLLine = findIndex("DL:", target, -1);
+					while (firstXSLine != -1) {
+						xsLines.push(firstXSLine);
+						firstXSLine = findIndex("XS:", target, firstXSLine);
+					}
+					while (firstDLLine != -1) {
+						xsLines.push(firstDLLine);
+						firstDLLine = findIndex("DL:", target, firstDLLine);
 					}
 					xsLines.forEach((el) => {
 						document.querySelectorAll('.highlight-line').forEach((line, index) => {
 							if (index == el) {
 								line.style.textDecoration = "line-through 0.5px solid";
-								line.style.opacity = "0.75";
+								line.style.opacity = "0.5";
+							}
+						});
+					});
+					dlLines.forEach((el) => {
+						document.querySelectorAll('.highlight-line').forEach((line, index) => {
+							if (index == el) {
+								line.style.textDecoration = "line-through 0.5px solid";
+								line.style.opacity = "0.5";
 							}
 						});
 					});
@@ -106,6 +124,7 @@ const observer = new MutationObserver(function (mutations) {
 						});
 					}
 					
+					// Transform flight numbers into Milweb links
 					readFlightAndDate();
 				
 			}
@@ -129,57 +148,20 @@ const observer = new MutationObserver(function (mutations) {
 			options.iataToggle && HLJS_Iata_El.forEach((el) => { readIata(el); el.style.cursor = "pointer"; });
 			HLJS_Iata_El.forEach((el) => el.style.color = options.colorAirports);
 			options.statusToggle && HLJS_Stats_El.forEach((el) => { readStatus(el); el.style.cursor = "pointer"; });
-
-			// options.officeToggle && HLJS_Office_El.forEach((el) => {
-			// 	let iata = el.textContent;
-			// 	let office = DOM_Office_El.value;
-			// 	chrome.runtime.sendMessage({ action: 'callApi', officeIata: iata, officeId: office }, response => {
-			// 		console.log(response);
-			// 		el.textContent = response;
-			// 	});
-			// 	el.style.color = options.colorOffices;
-			// });
-
-			let promises = [];
-
-			options.officeToggle && HLJS_Office_El.forEach((el, index) => {
-				let iata = String(el.textContent);
+			options.officeToggle && HLJS_Office_El.forEach((el) => {
+				let iata = el.textContent;
 				let office = DOM_Office_El.value;
-				let promise = new Promise((resolve, reject) => {
-					el.textContent = "Loading...";
-					setTimeout(() => {
-						chrome.runtime.sendMessage({ action: 'callApi', officeIata: iata, officeId: office }, response => {
-							if (response) {
-								resolve(response);
-							} else {
-								el.textContent = iata;
-							}
-						});
-					}, 200 * index);
-				});
+				readOffice(el, iata, office);
 				el.style.color = options.colorOffices;
-				promises.push(promise);
+				el.style.cursor = "pointer"
 			});
-
-			Promise.all(promises)
-				.then(responses => {
-					responses.forEach((response, index) => {
-						HLJS_Office_El[index].textContent = response;
-					})
-					if (responses.length > 0) {
-						fetch(`https://oscar.airfrance-is.com/oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=${DOM_History_El.value}&numEmulator=1&officeId=${DOM_Office_El.value}`)
-					}
-				})
-				.catch(error => {
-					console.error(error);
-				})
-
 			HLJS_Office_El.forEach((el) => el.style.color = options.colorOffices);
 			HLJS_Highlighted_El.forEach((el) => el.style.color = options.colorHighlight);
 			HLJS_Date_El.forEach((el) => { el.style.color = options.colorBg; el.style.backgroundColor = options.colorText; });
 			HLJS_Index_El.forEach((el) => el.style.color = options.colorIndex);
 			HLJS_Contacts_El.forEach((el) => el.style.color = options.colorContacts);
 			HLJS_Important_El.forEach((el) => el.style.color = options.colorImportant);
+
 			// Modify the popup
 			const HLJS_Popup_El = document.querySelectorAll('.popup');
 			HLJS_Popup_El.forEach((el) => {
@@ -218,6 +200,7 @@ setTimeout(() => {
 	target.textContent += " ";
 }, 100);
 
+// WIP
 const containsMultiple = (string, commands) => {
 	let length = commands.length;
 	if (string.length == 0) {

@@ -37,6 +37,7 @@
 				"includes/readClass.js",
 				"includes/readIata.js",
 				"includes/readStatus.js",
+				"includes/readOffice.js",
 				"includes/replaceAsync.js",
 				"includes/updateChanges.js",
 				"includes/readFlightAndDate.js",

@@ -61,6 +61,7 @@
 
 .hljs-office-info {
 	color: #f7ea5b;
+	text-decoration: underline;
 }
 
 .hljs-iata {
@@ -118,7 +119,7 @@
 	content: "";
 	display: block;
 	border-bottom: 0.5px dashed;
-	opacity: 0.25;
+	opacity: 0.2;
 }
 
 .highlight-line > a {
