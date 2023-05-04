@@ -1,5 +1,5 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-	let iata = message.officeIata.split(' ')[1];
+	let iata = message.officeIata.split(' ')[0].substring(3);
 	console.log(message);
 	if (message.action === 'callApi') {
 		// Make a request to a random API

@@ -14,6 +14,8 @@
 
 - MD*
 - MU*
+- MT*
+- MB*
 
 *check if it's okay
 

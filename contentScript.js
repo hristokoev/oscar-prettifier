@@ -61,57 +61,60 @@ const observer = new MutationObserver(function (mutations) {
 			const DOM_History_El = document.getElementById(`crypticHistoList1Id`);
 			const DOM_Office_El = document.getElementById(`officeIdList1Id`);
 
-			// Preprocess the text
-			target.textContent = preprocessor(target.textContent, options);
-
 			// Highlights the text first, then removes the listener (if exists) and runs a callback
-			function highlightAndDoStuff(target, callback) {
+			function highlightAndDoStuff(target, callback) {				
 				hljs.highlightElement(target);
 				chrome.storage.onChanged.removeListener(updateChangesOnListener);
 				callback();
 			}
 
-			highlightAndDoStuff(target, function () {
-				let optionsToListenerOptions = Object.fromEntries(Object.entries(options).filter(([key]) => key.includes('color') || key.includes('theme')));
-				for (const [key, value] of Object.entries(optionsToListenerOptions)) {
-					optionsToListenerOptions[key] = { "newValue": value };
-				}
-				// Update changes
-				updateChangesOnLoad(optionsToListenerOptions);
-				// Event listener for changes in Chrome Storage
-				chrome.storage.onChanged.addListener(updateChangesOnListener);
-			});
+			if (containsMultiple(DOM_History_El.value, ["PV", "RPP/RLC", "RT", "RPP/RHA", "RHA"], ["MD", "MU", "MT", "MB"])) {
+					// Preprocess the text
+					target.textContent = preprocessor(target.textContent, options);
 
-			if (options.linesToggle) {
-				// Highlight lines
-				hljs.initHighlightLinesOnLoad([]);
-				// let endLines = [];
-				// let endLine = findIndex("UTC+0", target, -1);
-				// while (endLine != -1) {
-				// 	endLines.push(endLine);
-				// 	endLine = findIndex("UTC+", target, endLine);
-				// }
-				// endLines.forEach((el) => {
-				// 	document.querySelectorAll('.highlight-line').forEach((line, index) => {
-				// 		if (index == el) {
-				// 			line.style.borderBottom = "0.5px solid";
-				// 		}
-				// 	});
-				// });
-				let xsLines = [];
-				let firstLine = findIndex("XS:", target, -1);
-				while (firstLine != -1) {
-					xsLines.push(firstLine);
-					firstLine = findIndex("XS:", target, firstLine);
-				}
-				xsLines.forEach((el) => {
-					document.querySelectorAll('.highlight-line').forEach((line, index) => {
-						if (index == el) {
-							line.style.textDecoration = "line-through 0.5px solid";
-							line.style.opacity = "0.75";
+					highlightAndDoStuff(target, function () {
+						let optionsToListenerOptions = Object.fromEntries(Object.entries(options).filter(([key]) => key.includes('color') || key.includes('theme')));
+						for (const [key, value] of Object.entries(optionsToListenerOptions)) {
+							optionsToListenerOptions[key] = { "newValue": value };
 						}
+						// Update changes
+						updateChangesOnLoad(optionsToListenerOptions);
+						// Event listener for changes in Chrome Storage
+						chrome.storage.onChanged.addListener(updateChangesOnListener);
 					});
-				});
+				
+
+				if (options.linesToggle) {
+					// Highlight lines
+					hljs.initHighlightLinesOnLoad([]);
+					// let endLines = [];
+					// let endLine = findIndex("UTC+0", target, -1);
+					// while (endLine != -1) {
+					// 	endLines.push(endLine);
+					// 	endLine = findIndex("UTC+", target, endLine);
+					// }
+					// endLines.forEach((el) => {
+					// 	document.querySelectorAll('.highlight-line').forEach((line, index) => {
+					// 		if (index == el) {
+					// 			line.style.borderBottom = "0.5px solid";
+					// 		}
+					// 	});
+					// });
+					let xsLines = [];
+					let firstLine = findIndex("XS:", target, -1);
+					while (firstLine != -1) {
+						xsLines.push(firstLine);
+						firstLine = findIndex("XS:", target, firstLine);
+					}
+					xsLines.forEach((el) => {
+						document.querySelectorAll('.highlight-line').forEach((line, index) => {
+							if (index == el) {
+								line.style.textDecoration = "line-through 0.5px solid";
+								line.style.opacity = "0.75";
+							}
+						});
+					});
+				}
 			}
 
 			// Apply the theme
@@ -147,19 +150,19 @@ const observer = new MutationObserver(function (mutations) {
 			let promises = [];
 
 			options.officeToggle && HLJS_Office_El.forEach((el, index) => {
-				let iata = el.textContent;
+				let iata = String(el.textContent);
 				let office = DOM_Office_El.value;
 				let promise = new Promise((resolve, reject) => {
 					el.textContent = "Loading...";
 					setTimeout(() => {
-					chrome.runtime.sendMessage({ action: 'callApi', officeIata: iata, officeId: office }, response => {
-						if (response) {
-							resolve(response);
-						} else {
-							reject(new Error("No response from API"));
-						}
-					});
-					}, 500 * index);
+						chrome.runtime.sendMessage({ action: 'callApi', officeIata: iata, officeId: office }, response => {
+							if (response) {
+								resolve(response);
+							} else {
+								el.textContent = iata;
+							}
+						});
+					}, 200 * index);
 				});
 				el.style.color = options.colorOffices;
 				promises.push(promise);
@@ -167,10 +170,12 @@ const observer = new MutationObserver(function (mutations) {
 
 			Promise.all(promises)
 				.then(responses => {
-					responses.forEach((response, index) =>{
+					responses.forEach((response, index) => {
 						HLJS_Office_El[index].textContent = response;
 					})
-					fetch(`https://oscar.airfrance-is.com/oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=${DOM_History_El.value}&numEmulator=1&officeId=${DOM_Office_El.value}`)
+					if (responses.length > 0) {
+						fetch(`https://oscar.airfrance-is.com/oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=${DOM_History_El.value}&numEmulator=1&officeId=${DOM_Office_El.value}`)
+					}
 				})
 				.catch(error => {
 					console.error(error);
@@ -192,11 +197,12 @@ const observer = new MutationObserver(function (mutations) {
 
 			// PNR link
 			const HLJS_PNR_El = document.querySelectorAll('.hljs-pnr');
-			HLJS_PNR_El.forEach((el) => { 
+			HLJS_PNR_El.forEach((el) => {
 				el.style.color = options.colorIndex;
 				el.addEventListener("click", () => {
-				window.open(`https://ticket.airfrance-is.com/ticket/ticket.visu.recherche.do?selectedtab=&pnr=${el.textContent}&valider=OK&foidPreMulti=+&action=rechercheForm&rechercheLargeMulti=off&archiveMulti=off`, "_blank");
-			}) });
+					window.open(`https://ticket.airfrance-is.com/ticket/ticket.visu.recherche.do?selectedtab=&pnr=${el.textContent}&valider=OK&foidPreMulti=+&action=rechercheForm&rechercheLargeMulti=off&archiveMulti=off`, "_blank");
+				})
+			});
 
 			// Reconnect the observer
 			observer.observe(target, config);
@@ -213,3 +219,24 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 // Start observing
 observer.observe(target, config);
+
+
+let isSafe = true;
+const containsMultiple = (string, commands, safe) => {
+	let result = false;	
+	let length = commands.length;
+	if (string.length == 0) {
+		return true;
+	}
+	for (let i = 0; i < length; i++) {
+		if (string.includes(commands[i])) {
+			return true;
+		}
+	}
+	for (let i = 0; i < length; i++) {
+		if (!string.includes(safe[i])) {
+			isSafe = false;
+		}
+	}
+	return isSafe;
+}
