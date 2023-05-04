@@ -192,7 +192,9 @@ const observer = new MutationObserver(function (mutations) {
 
 			// PNR link
 			const HLJS_PNR_El = document.querySelectorAll('.hljs-pnr');
-			HLJS_PNR_El.forEach((el) => { el.addEventListener("click", () => {
+			HLJS_PNR_El.forEach((el) => { 
+				el.style.color = options.colorIndex;
+				el.addEventListener("click", () => {
 				window.open(`https://ticket.airfrance-is.com/ticket/ticket.visu.recherche.do?selectedtab=&pnr=${el.textContent}&valider=OK&foidPreMulti=+&action=rechercheForm&rechercheLargeMulti=off&archiveMulti=off`, "_blank");
 			}) });
 
