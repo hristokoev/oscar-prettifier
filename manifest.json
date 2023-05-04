@@ -23,7 +23,8 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"https://oscar.airfrance-is.com/*"
+				"https://oscar.airfrance-is.com/*",
+				"<all_urls>"
 			],
 			"css": [
 				"highlight.css"
@@ -38,9 +39,11 @@
 				"includes/readStatus.js",
 				"includes/replaceAsync.js",
 				"includes/updateChanges.js",
+				"includes/readFlightAndDate.js",
 				"includes/etc/findIndex.js",
 				"includes/etc/convertDays.js",
 				"includes/etc/convertTime.js",
+				"includes/etc/convertDaysMilweb.js",
 				"syntax/index-green.js",
 				"syntax/index-yellow.js",
 				"syntax/index-red.js",
@@ -67,9 +70,12 @@
 	"web_accessible_resources": [
 		{
 			"matches": [
-				"https://oscar.airfrance-is.com/*"
+				"https://oscar.airfrance-is.com/*",
+				"<all_urls>"
 			],
-			"resources": []
+			"resources": [
+				"images/*"
+			]
 		}
 	]
 }

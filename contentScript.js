@@ -1,7 +1,5 @@
 // Options
-let options = {
-	switch: true
-};
+let options = {};
 let defaultOptions = {
 	switch: true,
 	theme: "dark",
@@ -85,23 +83,8 @@ const observer = new MutationObserver(function (mutations) {
 						chrome.storage.onChanged.addListener(updateChangesOnListener);
 					});
 
-
-				if (options.linesToggle) {
 					// Highlight lines
 					hljs.initHighlightLinesOnLoad([]);
-					// let endLines = [];
-					// let endLine = findIndex("UTC+0", target, -1);
-					// while (endLine != -1) {
-					// 	endLines.push(endLine);
-					// 	endLine = findIndex("UTC+", target, endLine);
-					// }
-					// endLines.forEach((el) => {
-					// 	document.querySelectorAll('.highlight-line').forEach((line, index) => {
-					// 		if (index == el) {
-					// 			line.style.borderBottom = "0.5px solid";
-					// 		}
-					// 	});
-					// });
 					let xsLines = [];
 					let firstLine = findIndex("XS:", target, -1);
 					while (firstLine != -1) {
@@ -116,7 +99,15 @@ const observer = new MutationObserver(function (mutations) {
 							}
 						});
 					});
-				}
+
+					if (options.linesToggle) {
+						document.querySelectorAll('.highlight-line').forEach((line, index) => {
+							line.className += ' active';
+						});
+					}
+					
+					readFlightAndDate();
+				
 			}
 
 			// Apply the theme
@@ -222,9 +213,12 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 // Start observing
 observer.observe(target, config);
 
-let isSafe = true;
-const containsMultiple = (string, commands, safe) => {
-	let result = false;	
+// Trigger the observer
+setTimeout(() => {
+	target.textContent += " ";
+}, 100);
+
+const containsMultiple = (string, commands) => {
 	let length = commands.length;
 	if (string.length == 0) {
 		return true;
@@ -234,10 +228,4 @@ const containsMultiple = (string, commands, safe) => {
 			return true;
 		}
 	}
-	for (let i = 0; i < length; i++) {
-		if (!string.includes(safe[i])) {
-			isSafe = false;
-		}
-	}
-	return isSafe;
 }
