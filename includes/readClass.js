@@ -12,10 +12,10 @@ const readClass = (flightClass, partner) => {
 			case "Business":
 				flightClass.textContent = `BIZ ${classText}`;
 				break;
-			case "Economy (Europe) or La Première (Intercontinental)":
+			case "Economy (Europe) or\nLa Première (Intercontinental)":
 				flightClass.textContent = `E/1 ${classText}`;
 				break;
-			case "Economy (Europe) or Premium Comfort (Intercontinental)":
+			case "Economy (Europe) or\nPremium Comfort (Intercontinental)":
 				flightClass.textContent = `E/P ${classText}`;
 				break;
 		}

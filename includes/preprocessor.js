@@ -14,7 +14,7 @@ const preprocessor = (text, options) => {
 
 	if (options.hideSegmentStatusToggle) {
 		// Changing OS/ to OS:, CS/ to CS:, TC/ to TC:, AS/ to AS:, XS/ to XS:, DL/ to DL:, RF- to RF:
-		text = text.replace(/(OS\/)|(CS\/)|(TC\/)|(AS\/)|(XS\/)|(DL\/)|(RF\-)/gm, (x) => `${x.slice(0, 2)}: `);
+		text = text.replace(/(?<=[0-9]{3} )((OS\/)|(CS\/)|(TC\/)|(AS\/)|(XS\/)|(DL\/)|(RF\-))/gm, (x) => `${x.slice(0, 2)}: `);
 
 		// Remove the asterisks like /LK *1A/E*
 		text = text.replace(/\/[A-Z]{2}(    | \*[A-Z0-9]{2}| \*[A-Z0-9]\*)((\/| )E\*)?/gi, '');

@@ -10,5 +10,6 @@ const language = [
 	...LANG_DATE,
 	...LANG_CONTACT,
 	...LANG_MESSAGE,
-	...LANG_STATUS
+	...LANG_STATUS,
+	...LANG_PNR
 ];

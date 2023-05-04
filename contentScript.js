@@ -30,10 +30,6 @@ const config = {
 	subtree: false,
 };
 
-// Get the command line fields
-const DOM_History_El = document.getElementById(`crypticHistoList1Id`);
-const DOM_Office_El = document.getElementById(`officeIdList1Id`);
-
 // HLJS Register Language
 hljs.registerLanguage('hristo', function () {
 	return {
@@ -61,6 +57,10 @@ const observer = new MutationObserver(function (mutations) {
 			// Disconnect the observer to prevent infinite loop
 			observer.disconnect();
 
+			// Get the command line fields
+			const DOM_History_El = document.getElementById(`crypticHistoList1Id`);
+			const DOM_Office_El = document.getElementById(`officeIdList1Id`);
+
 			// Preprocess the text
 			target.textContent = preprocessor(target.textContent, options);
 
@@ -85,19 +85,19 @@ const observer = new MutationObserver(function (mutations) {
 			if (options.linesToggle) {
 				// Highlight lines
 				hljs.initHighlightLinesOnLoad([]);
-				let endLines = [];
-				let endLine = findIndex("UTC+0", target, -1);
-				while (endLine != -1) {
-					endLines.push(endLine);
-					endLine = findIndex("UTC+", target, endLine);
-				}
-				endLines.forEach((el) => {
-					document.querySelectorAll('.highlight-line').forEach((line, index) => {
-						if (index == el) {
-							line.style.borderBottom = "0.5px solid";
-						}
-					});
-				});
+				// let endLines = [];
+				// let endLine = findIndex("UTC+0", target, -1);
+				// while (endLine != -1) {
+				// 	endLines.push(endLine);
+				// 	endLine = findIndex("UTC+", target, endLine);
+				// }
+				// endLines.forEach((el) => {
+				// 	document.querySelectorAll('.highlight-line').forEach((line, index) => {
+				// 		if (index == el) {
+				// 			line.style.borderBottom = "0.5px solid";
+				// 		}
+				// 	});
+				// });
 				let xsLines = [];
 				let firstLine = findIndex("XS:", target, -1);
 				while (firstLine != -1) {
@@ -133,14 +133,49 @@ const observer = new MutationObserver(function (mutations) {
 			options.iataToggle && HLJS_Iata_El.forEach((el) => { readIata(el); el.style.cursor = "pointer"; });
 			HLJS_Iata_El.forEach((el) => el.style.color = options.colorAirports);
 			options.statusToggle && HLJS_Stats_El.forEach((el) => { readStatus(el); el.style.cursor = "pointer"; });
-			options.officeToggle && HLJS_Office_El.forEach((el) => {
-				let iata = el.textContent.split(' ')[1];
+
+			// options.officeToggle && HLJS_Office_El.forEach((el) => {
+			// 	let iata = el.textContent;
+			// 	let office = DOM_Office_El.value;
+			// 	chrome.runtime.sendMessage({ action: 'callApi', officeIata: iata, officeId: office }, response => {
+			// 		console.log(response);
+			// 		el.textContent = response;
+			// 	});
+			// 	el.style.color = options.colorOffices;
+			// });
+
+			let promises = [];
+
+			options.officeToggle && HLJS_Office_El.forEach((el, index) => {
+				let iata = el.textContent;
 				let office = DOM_Office_El.value;
-				chrome.runtime.sendMessage({ action: 'callApi', iata: iata, office: office }, response => {
-					el.textContent = response;
+				let promise = new Promise((resolve, reject) => {
+					el.textContent = "Loading...";
+					setTimeout(() => {
+					chrome.runtime.sendMessage({ action: 'callApi', officeIata: iata, officeId: office }, response => {
+						if (response) {
+							resolve(response);
+						} else {
+							reject(new Error("No response from API"));
+						}
+					});
+					}, 500 * index);
 				});
 				el.style.color = options.colorOffices;
+				promises.push(promise);
 			});
+
+			Promise.all(promises)
+				.then(responses => {
+					responses.forEach((response, index) =>{
+						HLJS_Office_El[index].textContent = response;
+					})
+					fetch(`https://oscar.airfrance-is.com/oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=${DOM_History_El.value}&numEmulator=1&officeId=${DOM_Office_El.value}`)
+				})
+				.catch(error => {
+					console.error(error);
+				})
+
 			HLJS_Office_El.forEach((el) => el.style.color = options.colorOffices);
 			HLJS_Highlighted_El.forEach((el) => el.style.color = options.colorHighlight);
 			HLJS_Date_El.forEach((el) => { el.style.color = options.colorBg; el.style.backgroundColor = options.colorText; });
@@ -154,6 +189,12 @@ const observer = new MutationObserver(function (mutations) {
 				el.style.backgroundColor = options.colorBg;
 				el.style.borderColor = options.colorText;
 			});
+
+			// PNR link
+			const HLJS_PNR_El = document.querySelectorAll('.hljs-pnr');
+			HLJS_PNR_El.forEach((el) => { el.addEventListener("click", () => {
+				window.open(`https://ticket.airfrance-is.com/ticket/ticket.visu.recherche.do?selectedtab=&pnr=${el.textContent}&valider=OK&foidPreMulti=+&action=rechercheForm&rechercheLargeMulti=off&archiveMulti=off`, "_blank");
+			}) });
 
 			// Reconnect the observer
 			observer.observe(target, config);
@@ -170,8 +211,3 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 // Start observing
 observer.observe(target, config);
-
-// Trigger the observer
-setTimeout(function () {
-	target.textContent += " ";
-}, 10);

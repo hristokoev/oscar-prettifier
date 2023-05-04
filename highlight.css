@@ -67,6 +67,11 @@
 	color: #f57066;
 }
 
+.hljs-pnr {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
 .container {
 	display: contents;
 	position: relative;
@@ -87,6 +92,7 @@
 	position: absolute;
 	background: #22272e;
 	color: #adbbbc;
+	text-align: center;
 	border: 1px solid #adbbbc;
 	padding: 5px;
 	border-radius: 5px;
@@ -99,6 +105,7 @@
 }
 
 .highlight-line {
+	margin-block: 1px;
 	position: relative;
 }
 

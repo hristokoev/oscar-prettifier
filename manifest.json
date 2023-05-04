@@ -23,8 +23,7 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"https://oscar.airfrance-is.com/*",
-				"<all_urls>"
+				"https://oscar.airfrance-is.com/*"
 			],
 			"css": [
 				"highlight.css"
@@ -54,6 +53,7 @@
 				"syntax/contact.js",
 				"syntax/message.js",
 				"syntax/status.js",
+				"syntax/pnr.js",
 				"includes/language.js",
 				"highlight.min.js",
 				"highlightjs-highlight-lines.min.js",
@@ -67,8 +67,7 @@
 	"web_accessible_resources": [
 		{
 			"matches": [
-				"https://oscar.airfrance-is.com/*",
-				"<all_urls>"
+				"https://oscar.airfrance-is.com/*"
 			],
 			"resources": []
 		}
