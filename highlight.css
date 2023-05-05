@@ -20,6 +20,7 @@
 }
 
 .hljs-flight,
+.hljs-flight-dl,
 .hljs-flight-partner {
 	color: #D0F4EA;
 }
@@ -119,7 +120,7 @@
 	content: "";
 	display: block;
 	border-bottom: 0.5px dashed;
-	opacity: 0.2;
+	opacity: 0.25;
 }
 
 .highlight-line > a {

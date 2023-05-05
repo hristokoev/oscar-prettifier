@@ -1,10 +1,10 @@
 const readOffice = (el) => {
 	let iata = el.textContent;
 	el.addEventListener("click", () => {
-		document.getElementById("crypticRequest1").value = `PV/${iata}}`;
-		// ???
-		launchCrypticTransaction(1, 2, officeId1, true);
-		document.getElementById("amadeusTransaction1Form").submit();
+		document.getElementById('jsActions').value='emulatorLink1';
+		document.getElementById('indexPciDss').value='1';
+		document.getElementById("crypticRequest1").value = `PV/${iata}`;
+		document.getElementById("emulatorLink1").click();
 	});
 }
 

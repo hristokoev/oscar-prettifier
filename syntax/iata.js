@@ -4,11 +4,11 @@ const LANG_IATA = [
 		variants: [
 			{
 				// IATA CODE DEPARTURE
-				begin: /(?<= [0-9] )[A-Z]{3}(?= [A-Z]{3} )/
+				begin: /(?<=[0-9]{2}[A-Z]{3} [0-9] )[A-Z]{3}(?= [A-Z]{3} )/
 			},
 			{
 				// IATA CODE ARRIVAL
-				begin: /(?<= [0-9] [A-Z]{3} )[A-Z]{3}(?= )/
+				begin: /(?<=[0-9]{2}[A-Z]{3} [0-9] [A-Z]{3} )[A-Z]{3}(?= )/
 			}
 		]
 	},

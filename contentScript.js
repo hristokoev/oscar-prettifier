@@ -2,6 +2,7 @@
 let options = {
 	switch: true,
 };
+
 let defaultOptions = {
 	switch: true,
 	theme: "dark",
@@ -20,6 +21,9 @@ let defaultOptions = {
 	colorContacts: "#f7ea5b",
 	colorImportant: "#f57066"
 }
+
+// Is it ok to run?
+let isSafe = true;
 
 // Target this HTML element
 const target = document.getElementById('crypticResponse1');
@@ -56,77 +60,77 @@ const observer = new MutationObserver(function (mutations) {
 			// Do not run if the switch is off
 			if (!options.switch) return;
 
+			// Get the command line fields
+			let DOM_History_El = document.getElementById(`crypticHistoList1Id`);
+			let DOM_Office_El = document.getElementById(`officeIdList1Id`);
+
 			// Disconnect the observer to prevent infinite loop
 			observer.disconnect();
 
-			// Get the command line fields
-			const DOM_History_El = document.getElementById(`crypticHistoList1Id`);
-			const DOM_Office_El = document.getElementById(`officeIdList1Id`);
-
 			// Highlights the text first, then removes the listener (if exists) and runs a callback
-			function highlightAndDoStuff(target, callback) {				
+			function highlightAndDoStuff(target, callback) {
 				hljs.highlightElement(target);
 				chrome.storage.onChanged.removeListener(updateChangesOnListener);
 				callback();
 			}
 
 			// Limit to these commands
-			if (containsMultiple(DOM_History_El.value, ["PV", "RPP/RLC", "RT", "RPP/RHA", "RHA"], ["MD", "MU", "MT", "MB", "PLD"])) {
-					// Preprocess the text
-					target.textContent = preprocessor(target.textContent, options);
+			if (containsMultiple(isSafe, DOM_History_El.value, ["PV", "RPP/RLC", "RT", "RPP/RHA", "RHA", "PLD"], ["MD", "MU", "MT", "MB"])) {
+				// Preprocess the text
+				target.textContent = preprocessor(target.textContent, options);
 
-					highlightAndDoStuff(target, function () {
-						let optionsToListenerOptions = Object.fromEntries(Object.entries(options).filter(([key]) => key.includes('color') || key.includes('theme')));
-						for (const [key, value] of Object.entries(optionsToListenerOptions)) {
-							optionsToListenerOptions[key] = { "newValue": value };
+				highlightAndDoStuff(target, function () {
+					let optionsToListenerOptions = Object.fromEntries(Object.entries(options).filter(([key]) => key.includes('color') || key.includes('theme')));
+					for (const [key, value] of Object.entries(optionsToListenerOptions)) {
+						optionsToListenerOptions[key] = { "newValue": value };
+					}
+					// Update changes
+					updateChangesOnLoad(optionsToListenerOptions);
+					// Event listener for changes in Chrome Storage
+					chrome.storage.onChanged.addListener(updateChangesOnListener);
+				});
+
+				// Highlight lines
+				hljs.initHighlightLinesOnLoad([]);
+
+				let xsLines = [];
+				let dlLines = [];
+				let firstXSLine = findIndex("XS:", target, -1);
+				let firstDLLine = findIndex("DL:", target, -1);
+				while (firstXSLine != -1) {
+					xsLines.push(firstXSLine);
+					firstXSLine = findIndex("XS:", target, firstXSLine);
+				}
+				while (firstDLLine != -1) {
+					xsLines.push(firstDLLine);
+					firstDLLine = findIndex("DL:", target, firstDLLine);
+				}
+				xsLines.forEach((el) => {
+					document.querySelectorAll('.highlight-line').forEach((line, index) => {
+						if (index == el) {
+							line.style.textDecoration = "line-through 0.5px solid";
+							line.style.opacity = "0.5";
 						}
-						// Update changes
-						updateChangesOnLoad(optionsToListenerOptions);
-						// Event listener for changes in Chrome Storage
-						chrome.storage.onChanged.addListener(updateChangesOnListener);
 					});
-
-					// Highlight lines
-					hljs.initHighlightLinesOnLoad([]);
-
-					let xsLines = [];
-					let dlLines = [];
-					let firstXSLine = findIndex("XS:", target, -1);
-					let firstDLLine = findIndex("DL:", target, -1);
-					while (firstXSLine != -1) {
-						xsLines.push(firstXSLine);
-						firstXSLine = findIndex("XS:", target, firstXSLine);
-					}
-					while (firstDLLine != -1) {
-						xsLines.push(firstDLLine);
-						firstDLLine = findIndex("DL:", target, firstDLLine);
-					}
-					xsLines.forEach((el) => {
-						document.querySelectorAll('.highlight-line').forEach((line, index) => {
-							if (index == el) {
-								line.style.textDecoration = "line-through 0.5px solid";
-								line.style.opacity = "0.5";
-							}
-						});
+				});
+				dlLines.forEach((el) => {
+					document.querySelectorAll('.highlight-line').forEach((line, index) => {
+						if (index == el) {
+							line.style.textDecoration = "line-through 0.5px solid";
+							line.style.opacity = "0.5";
+						}
 					});
-					dlLines.forEach((el) => {
-						document.querySelectorAll('.highlight-line').forEach((line, index) => {
-							if (index == el) {
-								line.style.textDecoration = "line-through 0.5px solid";
-								line.style.opacity = "0.5";
-							}
-						});
-					});
+				});
 
-					if (options.linesToggle) {
-						document.querySelectorAll('.highlight-line').forEach((line, index) => {
-							line.className += ' active';
-						});
-					}
-					
-					// Transform flight numbers into Milweb links
-					readFlightAndDate();
-				
+				if (options.linesToggle) {
+					document.querySelectorAll('.highlight-line').forEach((line, index) => {
+						line.className += ' active';
+					});
+				}
+
+				// Transform flight numbers into Milweb links
+				readFlightAndDate();
+
 			}
 
 			// Apply the theme
@@ -135,7 +139,7 @@ const observer = new MutationObserver(function (mutations) {
 			const HLJS_Iata_El = document.querySelectorAll('.hljs-iata');
 			const HLJS_Stats_El = document.querySelectorAll('.hljs-status');
 			const HLJS_Office_El = document.querySelectorAll('.hljs-office-info');
-			const HLJS_Highlighted_El = document.querySelectorAll('.hljs-flight, .hljs-flight-partner, .hljs-time');
+			const HLJS_Highlighted_El = document.querySelectorAll('.hljs-flight, .hljs-flight-dl, .hljs-flight-partner, .hljs-time');
 			const HLJS_Date_El = document.querySelectorAll('.hljs-date');
 			const HLJS_Index_El = document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red');
 			const HLJS_Contacts_El = document.querySelectorAll('.hljs-contact-info');
@@ -178,7 +182,6 @@ const observer = new MutationObserver(function (mutations) {
 					window.open(`https://ticket.airfrance-is.com/ticket/ticket.visu.recherche.do?selectedtab=&pnr=${el.textContent}&valider=OK&foidPreMulti=+&action=rechercheForm&rechercheLargeMulti=off&archiveMulti=off`, "_blank");
 				})
 			});
-
 			// Reconnect the observer
 			observer.observe(target, config);
 		});
@@ -196,19 +199,30 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 observer.observe(target, config);
 
 // Trigger the observer
-setTimeout(() => {
-	target.textContent += " ";
-}, 100);
+// setTimeout(() => {
+// 	target.textContent += " ";
+// }, 100);
 
 // WIP
-const containsMultiple = (string, commands) => {
-	let length = commands.length;
+const containsMultiple = (isSafe, string, commands, safeCommands) => {
+	let commandsLength = commands.length;
+	let safeCommandsLength = safeCommands.length;
 	if (string.length == 0) {
 		return true;
 	}
-	for (let i = 0; i < length; i++) {
+	for (let i = 0; i < commandsLength; i++) {
 		if (string.includes(commands[i])) {
+			isSafe = true;
 			return true;
 		}
+	}
+	if (isSafe) {
+		for (let i = 0; i < safeCommandsLength; i++) {
+			if (string == safeCommands[i]) {
+				return true;
+			}
+		}
+		isSafe = false;
+		return false;
 	}
 }

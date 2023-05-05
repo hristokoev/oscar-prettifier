@@ -14,8 +14,8 @@ const convertDaysMilweb = (date) => {
 	let dateMonth = mmmToNum(date.substr(2, 3));
 
 	if (dateMonth > currentMonth || (dateMonth == currentMonth && dateDay > currentDay)) {
-		return (`${dateDay}/${dateMonth}/${currentYear - 1}`);
+		return (`${currentYear - 1}-${dateMonth < 10 ? '0' + dateMonth : dateMonth}-${dateDay < 10 ? '0' + dateDay : dateDay}`);
 	} else {
-		return (`${dateDay}/${dateMonth}/${currentYear}`);
+		return (`${currentYear}-${dateMonth < 10 ? '0' + dateMonth : dateMonth}-${dateDay < 10 ? '0' + dateDay : dateDay}`);
 	}
 }

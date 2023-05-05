@@ -20,7 +20,7 @@ const LANG_INDEX = [
 			},
 			{
 				// SINGLE TRIPLE DIGIT (    123)
-				begin: /^ {4}[0-9]{3} /
+				begin: /(^ {4}[0-9]{3} )|(^[0-9]\.?  )/
 			},
 			{
 				// DOUBLE TRIPLE DIGIT BEFORE "/"

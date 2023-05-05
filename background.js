@@ -1,21 +1,24 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-	let iata = message.officeIata.split(' ')[0];
-	console.log(message);
-	if (message.action === 'callApi') {
-		// Make a request to a random API
-		fetch(`https://oscar.airfrance-is.com/oscar/portalAmadeusTransaction.do?method=sendCrypticCommand&crypticRequest=PV%2F${iata}&numEmulator=1&officeId=${message.officeId}`)
-			.then(response => response.text())
-			.then(data => {
-				let match = data.match(/(?<=^NAM\*OFFICE\sNAME\s{6}\-\s)(.*)/gm);
-				console.log(match);
-				sendResponse(match);
-			})
-			.catch(error => {
-				console.error(error);
-				sendResponse(message.officeIata);
+	if (message.linkUrl) {
+		// Create a new tab and open the first webpage
+		chrome.tabs.create({ url: message.linkUrl }, async (firstTab) => {
+		  // Wait for the first webpage to finish loading
+		  await new Promise((resolve) => {
+			chrome.tabs.onUpdated.addListener(function listener(tabId, changeInfo) {
+			  if (tabId === firstTab.id && changeInfo.status === 'complete') {
+				chrome.tabs.onUpdated.removeListener(listener);
+				resolve();
+			  }
 			});
+		  });
 
-		// Return true to indicate that sendResponse will be called asynchronously
-		return true;
-	}
+		  chrome.storage.local.set({ lastFlightOperator: message.fo }).then(() => {
+			console.log("Value is set to " + message.fo);
+		  });
+	
+		  // Update the URL of the first tab to the second webpage
+		  chrome.tabs.update(firstTab.id, { url: `https://milweb.airfrance-is.com/MilordWeb/flightInfo.do?searchAirlDsgCd=${message.fo}&searchFlightNumber=${message.fn}&searchFltIdDtWDate=${message.fd}&action=search&` });
+		});
+	  }
 });
+  
