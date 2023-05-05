@@ -93,6 +93,24 @@
 	visibility: visible;
 }
 
+.highlight-line.dimmed {
+	background: #22272e;
+	text-decoration: 0.5px line-through solid;
+}
+
+.highlight-line.dimmed::after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: inherit;
+	opacity: 0.5;
+	z-index: 1;
+}
+
 .popup {
 	opacity: 0;
 	visibility: hidden;

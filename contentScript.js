@@ -108,16 +108,14 @@ const observer = new MutationObserver(function (mutations) {
 				xsLines.forEach((el) => {
 					document.querySelectorAll('.highlight-line').forEach((line, index) => {
 						if (index == el) {
-							line.style.textDecoration = "line-through 0.5px solid";
-							line.style.opacity = "0.5";
+							line.className += ' dimmed';
 						}
 					});
 				});
 				dlLines.forEach((el) => {
 					document.querySelectorAll('.highlight-line').forEach((line, index) => {
 						if (index == el) {
-							line.style.textDecoration = "line-through 0.5px solid";
-							line.style.opacity = "0.5";
+							line.className += ' dimmed';
 						}
 					});
 				});
@@ -144,6 +142,7 @@ const observer = new MutationObserver(function (mutations) {
 			const HLJS_Index_El = document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red');
 			const HLJS_Contacts_El = document.querySelectorAll('.hljs-contact-info');
 			const HLJS_Important_El = document.querySelectorAll('.hljs-message, .hljs-status.un');
+			const HLJS_Dimmed_El = document.querySelectorAll('.dimmed');
 			document.querySelector('.hljs').style.color = options.colorText;
 			document.querySelector('.hljs').style.backgroundColor = options.colorBg;
 			document.querySelector('.hljs').parentNode.style.backgroundColor = options.colorBg;
@@ -165,6 +164,7 @@ const observer = new MutationObserver(function (mutations) {
 			HLJS_Index_El.forEach((el) => el.style.color = options.colorIndex);
 			HLJS_Contacts_El.forEach((el) => el.style.color = options.colorContacts);
 			HLJS_Important_El.forEach((el) => el.style.color = options.colorImportant);
+			HLJS_Dimmed_El.forEach((el) => el.style.backgroundColor = options.colorBg);
 
 			// Modify the popup
 			const HLJS_Popup_El = document.querySelectorAll('.popup');
@@ -199,9 +199,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 observer.observe(target, config);
 
 // Trigger the observer
-// setTimeout(() => {
-// 	target.textContent += " ";
-// }, 100);
+setTimeout(() => {
+	target.textContent += " ";
+}, 100);
 
 // WIP
 const containsMultiple = (isSafe, string, commands, safeCommands) => {

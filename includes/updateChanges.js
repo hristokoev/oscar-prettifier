@@ -12,6 +12,7 @@ const updateChangesOnLoad = (changes) => {
 				document.querySelector('.hljs').style.backgroundColor = newValue;
 				document.querySelector('.hljs').parentNode.style.backgroundColor = newValue;
 				document.querySelectorAll('.popup').forEach((el) => el.style.backgroundColor = newValue);
+				document.querySelectorAll('.dimmed').forEach((el) => el.style.backgroundColor = newValue);
 				document.querySelectorAll('.hljs-date').forEach((el) => el.style.color = newValue);
 				break;
 			case "colorIndex":
