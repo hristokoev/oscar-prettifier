@@ -11,5 +11,6 @@ const language = [
 	...LANG_CONTACT,
 	...LANG_MESSAGE,
 	...LANG_STATUS,
+	...LANG_SEGMENT,
 	...LANG_PNR
 ];

@@ -1,3 +1,8 @@
+#crypticResponse1 {
+	font-family: "Monocode", monospace;
+	letter-spacing: 1px;
+}
+
 .bg {
 	background: #22272e !important;
 	color: #adbbbc !important;
@@ -23,6 +28,7 @@
 .hljs-flight-dl,
 .hljs-flight-partner {
 	color: #D0F4EA;
+	font-weight: 500;
 }
 
 .hljs-flight-partner,
@@ -36,6 +42,7 @@
 
 .hljs-time {
 	color: #D0F4EA;
+	font-weight: 500;
 }
 
 /* .hljs-date {
@@ -67,6 +74,7 @@
 
 .hljs-iata {
 	color: #92d9f8;
+	font-weight: 500;
 }
 
 .hljs-message {
@@ -91,6 +99,10 @@
 .hljs-office-info:hover+.popup {
 	opacity: 1;
 	visibility: visible;
+}
+
+.popup {
+	z-index: 2;
 }
 
 .highlight-line.dimmed {
@@ -127,6 +139,11 @@
 
 .hljs-status.un {
 	color: #f57066;
+}
+
+.hljs-segment {
+	font-size: 0.85em;
+	letter-spacing: -1px;
 }
 
 .highlight-line {

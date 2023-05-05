@@ -56,6 +56,7 @@
 				"syntax/iata.js",
 				"syntax/contact.js",
 				"syntax/message.js",
+				"syntax/segment.js",
 				"syntax/status.js",
 				"syntax/pnr.js",
 				"includes/language.js",
@@ -70,11 +71,12 @@
 	},
 	"web_accessible_resources": [
 		{
-			"matches": [
-				"https://oscar.airfrance-is.com/*"
-			],
 			"resources": [
-				"images/*"
+				"fonts/**/*.ttf"
+			],
+			"matches": [
+				"https://oscar.airfrance-is.com/*",
+				"<all_urls>"
 			]
 		}
 	]
