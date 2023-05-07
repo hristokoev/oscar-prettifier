@@ -161,32 +161,44 @@ const observer = new MutationObserver(function (mutations) {
 				// Highlight lines
 				hljs.initHighlightLinesOnLoad([]);
 
+				let osLines = [];
+				let csLines = [];
+				let asLines = [];
 				let xsLines = [];
 				let dlLines = [];
-				let firstXSLine = findIndex("XS:", target, -1);
-				let firstDLLine = findIndex("DL:", target, -1);
-				while (firstXSLine != -1) {
-					xsLines.push(firstXSLine);
-					firstXSLine = findIndex("XS:", target, firstXSLine);
+				let rfLines = [];
+				let osString = "OS:";
+				let csString = "CS:";
+				let asString = "AS:";
+				let xsString = "XS:";
+				let dlString = "DL:";
+				let rfString = "RF:";
+				let firstOSLine = findIndex(osString, target, -1);
+				let firstCSLine = findIndex(csString, target, -1);
+				let firstASLine = findIndex(asString, target, -1);
+				let firstXSLine = findIndex(xsString, target, -1);
+				let firstDLLine = findIndex(dlString, target, -1);
+				let firstRFLine = findIndex(rfString, target, -1);
+				function processLines(string, lines, firstLine, className) {
+					while (firstLine != -1) {
+						lines.push(firstLine);
+						firstLine = findIndex(string, target, firstLine);
+					}	
+					lines.forEach((el) => {
+						console.log(el);
+						document.querySelectorAll('.highlight-line').forEach((line, index) => {
+							if (index == el) {
+								line.className += className || '';
+							}
+						});
+					});				
 				}
-				while (firstDLLine != -1) {
-					xsLines.push(firstDLLine);
-					firstDLLine = findIndex("DL:", target, firstDLLine);
-				}
-				xsLines.forEach((el) => {
-					document.querySelectorAll('.highlight-line').forEach((line, index) => {
-						if (index == el) {
-							line.className += ' dimmed';
-						}
-					});
-				});
-				dlLines.forEach((el) => {
-					document.querySelectorAll('.highlight-line').forEach((line, index) => {
-						if (index == el) {
-							line.className += ' dimmed';
-						}
-					});
-				});
+				processLines(osString, osLines, firstOSLine, ' os');
+				processLines(csString, csLines, firstCSLine, ' cs');
+				processLines(asString, asLines, firstASLine, ' as');
+				processLines(xsString, xsLines, firstXSLine, ' dimmed xs');
+				processLines(dlString, dlLines, firstDLLine, ' dimmed dl');
+				processLines(rfString, rfLines, firstRFLine, ' rf');
 
 				if (options.linesToggle) {
 					document.querySelectorAll('.highlight-line').forEach((line, index) => {
@@ -207,7 +219,7 @@ const observer = new MutationObserver(function (mutations) {
 			const HLJS_Office_El = document.querySelectorAll('.hljs-office-info');
 			const HLJS_Highlighted_El = document.querySelectorAll('.hljs-flight, .hljs-flight-dl, .hljs-flight-partner, .hljs-time');
 			const HLJS_Date_El = document.querySelectorAll('.hljs-date');
-			const HLJS_Index_El = document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red');
+			const HLJS_Index_El = document.querySelectorAll('.hljs-index, .hljs-index-add, .hljs-index-yellow, .hljs-index-delete');
 			const HLJS_Contacts_El = document.querySelectorAll('.hljs-contact-info');
 			const HLJS_Important_El = document.querySelectorAll('.hljs-message, .hljs-status.un');
 			const HLJS_Dimmed_El = document.querySelectorAll('.dimmed');

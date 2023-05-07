@@ -16,7 +16,7 @@ const updateChangesOnLoad = (changes) => {
 				document.querySelectorAll('.hljs-date').forEach((el) => el.style.color = newValue);
 				break;
 			case "colorIndex":
-				document.querySelectorAll('.hljs-index, .hljs-index-green, .hljs-index-yellow, .hljs-index-red, .hljs-pnr').forEach((el) => el.style.color = newValue);
+				document.querySelectorAll('.hljs-index, .hljs-index-add, .hljs-index-change, .hljs-index-delete, .hljs-index-rf, .hljs-pnr').forEach((el) => el.style.color = newValue);
 				break;
 			case "colorHighlight":
 				document.querySelectorAll('.hljs-flight, .hljs-flight-dl, .hljs-flight-partner, .hljs-time').forEach((el) => el.style.color = newValue);

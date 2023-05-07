@@ -1,6 +1,6 @@
-const LANG_INDEX_RED = [
+const LANG_INDEX_DEL = [
 	{
-		className: 'index-red',
+		className: 'index-delete',
 		variants: [
 			{
 				// SINGLE TRIPLE DIGIT (    123)

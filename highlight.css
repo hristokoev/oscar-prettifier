@@ -9,19 +9,19 @@
 }
 
 .hljs-index {
-	color: #8dd881;
+	color: #f7ea5b;
 }
 
-.hljs-index-green {
-	color: #8dd881;
+.hljs-index-add {
+	/* color: #8dd881; */
 }
 
-.hljs-index-red {
-	color: #8dd881;
+.hljs-index-change {
+	/* color: #92d9f8; */
 }
 
-.hljs-index-yellow {
-	color: #8dd881;
+.hljs-index-delete {
+	/* color: #f57066; */
 }
 
 .hljs-flight,
@@ -58,9 +58,10 @@
 	color: #22272e;
 	padding: 2px 4px;
 	border-radius: 2px;
-	margin-top: 4px;
+	margin-top: 6px;
 	margin-bottom: 12px;
 	font-size: 0.75em;
+	font-weight: bold;
 }
 
 .hljs-contact-info {
@@ -148,8 +149,45 @@
 }
 
 .highlight-line {
-	margin-block: 1px;
+	padding-block: 1px;
 	position: relative;
+}
+
+.highlight-line.os,
+.highlight-line.as,
+.highlight-line.cs,
+.highlight-line.xs,
+.highlight-line.dl,
+.highlight-line.rf {
+	border-left: 0.5px solid;
+	padding-left: 10px;
+}
+
+.highlight-line.os {
+	border: none;
+	border-left-color: #8dd881;
+}
+
+.highlight-line.as {
+	border: none;
+	border-left-color: #8dd881;
+}
+
+.highlight-line.cs,
+.highlight-line.tc {
+	border: none;
+	border-left-color: #92d9f8;
+}
+
+.highlight-line.xs,
+.highlight-line.dl {
+	border: none;
+	border-left-color: #f57066;
+}
+
+.highlight-line.rf {
+	border: none;
+	border-left-color: #f7ea5b;
 }
 
 .highlight-line.active::before {
@@ -162,4 +200,8 @@
 .highlight-line > a {
 	display: inline-block;
 	text-decoration: none;
+}
+
+.highlight-line.time {
+	border: 0;
 }
