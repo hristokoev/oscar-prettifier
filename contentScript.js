@@ -9,7 +9,6 @@ let defaultOptions = {
 	classToggle: true,
 	iataToggle: true,
 	statusToggle: true,
-	officeToggle: true,
 	hideSegmentStatusToggle: true,
 	linesToggle: true,
 	colorText: "#adbbbc",
@@ -231,7 +230,7 @@ const observer = new MutationObserver(function (mutations) {
 			options.iataToggle && HLJS_Iata_El.forEach((el) => { readIata(el); el.style.cursor = "pointer"; });
 			HLJS_Iata_El.forEach((el) => el.style.color = options.colorAirports);
 			options.statusToggle && HLJS_Stats_El.forEach((el) => { readStatus(el); el.style.cursor = "pointer"; });
-			options.officeToggle && HLJS_Office_El.forEach((el) => {
+			HLJS_Office_El.forEach((el) => {
 				let iata = el.textContent;
 				let office = DOM_Office_El.value;
 				readOffice(el, iata, office);

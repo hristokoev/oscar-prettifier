@@ -174,13 +174,6 @@ document.getElementById("statusToggle").addEventListener("change", function () {
 	chrome.storage.sync.set({ "statusToggle": newValue });
 });
 
-document.getElementById("officeToggle").addEventListener("change", function () {
-	let newValue = this.checked;
-	document.getElementById("reload").style.display = "block";
-	document.querySelector(".divider").style.display = "none";
-	chrome.storage.sync.set({ "officeToggle": newValue });
-});
-
 document.getElementById("hideSegmentStatusToggle").addEventListener("change", function () {
 	let newValue = this.checked;
 	document.getElementById("reload").style.display = "block";
@@ -238,14 +231,13 @@ document.getElementById("colorImportant").addEventListener("change", function ()
 
 // Function to load selected preset from Chrome Storage
 function loadPreset() {
-	chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "officeToggle", "hideSegmentStatusToggle", "linesToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
+	chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "hideSegmentStatusToggle", "linesToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
 		document.getElementById("switch").checked = result.switch || typeof result.switch === 'undefined';
 		document.getElementById("options").style.display = document.getElementById("switch").checked ? "block" : "none";
 		document.getElementById("theme").value = result.theme || darkPreset.theme;
 		document.getElementById("classToggle").checked = result.classToggle || typeof result.classToggle === 'undefined';
 		document.getElementById("iataToggle").checked = result.iataToggle || typeof result.iataToggle === 'undefined';
 		document.getElementById("statusToggle").checked = result.statusToggle || typeof result.statusToggle === 'undefined';
-		document.getElementById("officeToggle").checked = result.officeToggle || typeof result.officeToggle === 'undefined';
 		document.getElementById("hideSegmentStatusToggle").checked = result.hideSegmentStatusToggle || typeof result.hideSegmentStatusToggle === 'undefined';
 		document.getElementById("linesToggle").checked = result.linesToggle || typeof result.linesToggle === 'undefined';
 		document.getElementById("colorText").value = result.colorText || darkPreset.colorText;
