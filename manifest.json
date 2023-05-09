@@ -23,7 +23,8 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"https://oscar.airfrance-is.com/*"
+				"https://oscar.airfrance-is.com/*",
+				"https://koev.cz/*"
 			],
 			"css": [
 				"highlight.css"
@@ -42,6 +43,7 @@
 				"includes/readFlightAndDate.js",
 				"includes/processLines.js",
 				"includes/etc/findIndex.js",
+				"includes/etc/processLines.js",
 				"includes/etc/convertDays.js",
 				"includes/etc/convertTime.js",
 				"includes/etc/convertDaysMilweb.js",
