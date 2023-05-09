@@ -264,13 +264,14 @@ document.getElementById("resetButton").addEventListener("click", function () {
 document.getElementById("reload").addEventListener("click", function () {
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
 		chrome.tabs.sendMessage(tabs[0].id, { url: '/' });
+		window.close();
 	});
 });
 
 // Open OSCAR
 document.querySelector(".oscarLink").addEventListener("click", function () {
 	chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-		chrome.tabs.sendMessage(tabs[0].id, { url: 'https://oscar.airfrance-is.com/' });
+		chrome.tabs.create({active: true, url: 'https://oscar.airfrance-is.com/oscar/startOscar.do?method=init&screenSize=1920x1080'});
 	});
 });
 

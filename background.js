@@ -1,4 +1,5 @@
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+	
 	if (message.linkUrl) {
 		// Create a new tab and open the first webpage
 		chrome.tabs.create({ url: message.linkUrl }, async (firstTab) => {

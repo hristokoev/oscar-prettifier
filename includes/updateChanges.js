@@ -26,6 +26,7 @@ const updateChangesOnLoad = (changes) => {
 				break;
 			case "colorOffices":
 				document.querySelectorAll('.hljs-office-info').forEach((el) => el.style.color = newValue);
+				document.querySelectorAll('.hljs-office-name').forEach((el) => el.style.color = newValue);
 				break;
 			case "colorContacts":
 				document.querySelectorAll('.hljs-contact-info').forEach((el) => el.style.color = newValue);

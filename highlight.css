@@ -68,8 +68,12 @@
 	color: #f7ea5b;
 }
 
-.hljs-office-info {
+.hljs-office-info,
+.hljs-office-name {
 	color: #f7ea5b;
+}
+
+.hljs-office-info {
 	text-decoration: underline;
 }
 
@@ -159,8 +163,7 @@
 .highlight-line.xs,
 .highlight-line.dl,
 .highlight-line.rf {
-	border-left: 0.5px solid;
-	padding-left: 10px;
+	border-left: 2px solid;
 }
 
 .highlight-line.os {

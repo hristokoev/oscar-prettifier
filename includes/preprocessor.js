@@ -19,7 +19,7 @@ const preprocessor = (text, options) => {
 		// Remove the asterisks like /LK *1A/E*
 		text = text.replace(/\/[A-Z]{2}(    | \*[A-Z0-9]{2}| \*[A-Z0-9]\*)((\/| )E\*)?/gi, '');
 		text = text.replace(/(?<=[0-9]{4}|[0-9]{4}\+1)\/[A-Z]{2} (?=\r?\n)/gi, '');
-		text = text.replace(/\*[A-Z0-9]{2}\/E\*(?=\r?\n)/gi, '');
+		text = text.replace(/(\*[A-Z0-9]{2}\/E\*)|( {5}E\*)(?=\r?\n)/gi, '');
 	}
 
 	// Separate IATAs

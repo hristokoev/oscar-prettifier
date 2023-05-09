@@ -23,8 +23,7 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"https://oscar.airfrance-is.com/*",
-				"<all_urls>"
+				"https://oscar.airfrance-is.com/*"
 			],
 			"css": [
 				"highlight.css"
@@ -46,6 +45,8 @@
 				"includes/etc/convertDays.js",
 				"includes/etc/convertTime.js",
 				"includes/etc/convertDaysMilweb.js",
+				"includes/etc/containsMultiple.js",
+				"fonts/style.js",
 				"syntax/index-add.js",
 				"syntax/index-change.js",
 				"syntax/index-delete.js",
@@ -61,6 +62,7 @@
 				"syntax/segment.js",
 				"syntax/status.js",
 				"syntax/pnr.js",
+				"syntax/officename.js",
 				"includes/language.js",
 				"highlight.min.js",
 				"highlightjs-highlight-lines.min.js",
@@ -77,8 +79,7 @@
 				"fonts/**/*.ttf"
 			],
 			"matches": [
-				"https://oscar.airfrance-is.com/*",
-				"<all_urls>"
+				"https://oscar.airfrance-is.com/*"
 			]
 		}
 	]

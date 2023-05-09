@@ -48,67 +48,7 @@ target.className += ' oscar';
 // Add style
 
 const style = document.createElement('style');
-style.textContent =
-	`@font-face {
-		font-family: 'Monocode';
-		src: url(${ chrome.runtime.getURL('fonts/monocode/monocode-light.ttf') });
-		font-weight: 300;
-		font-style: normal;
-	}
-	@font-face {
-		font-family: 'Monocode';
-		src: url(${ chrome.runtime.getURL('fonts/monocode/monocode-lightitalic.ttf') });
-		font-weight: 300;
-		font-style: italic;
-	}
-	@font-face {
-		font-family: 'Monocode';
-		src: url(${ chrome.runtime.getURL('fonts/monocode/monocode-regular.ttf') });
-		font-weight: normal;
-		font-style: normal;
-	}
-	@font-face {
-		font-family: 'Monocode';
-		src: url(${ chrome.runtime.getURL('fonts/monocode/monocode-italic.ttf') });
-		font-weight: normal;
-		font-style: italic;
-	}
-	@font-face {
-		font-family: 'Monocode';
-		src: url(${ chrome.runtime.getURL('fonts/monocode/monocode-medium.ttf') });
-		font-weight: 500;
-		font-style: normal;
-	}
-	@font-face {
-		font-family: 'Monocode';
-		src: url(${ chrome.runtime.getURL('fonts/monocode/monocode-mediumitalic.ttf') });
-		font-weight: 500;
-		font-style: italic;
-	}
-	@font-face {
-		font-family: 'Monocode';
-		src: url(${ chrome.runtime.getURL('fonts/monocode/monocode-semibold.ttf') });
-		font-weight: 600;
-		font-style: normal;
-	}
-	@font-face {
-		font-family: 'Monocode';
-		src: url(${ chrome.runtime.getURL('fonts/monocode/monocode-semibolditalic.ttf') });
-		font-weight: 600;
-		font-style: italic;
-	}
-	@font-face {
-		font-family: 'Monocode';
-		src: url(${ chrome.runtime.getURL('fonts/monocode/monocode-bold.ttf') });
-		font-weight: bold;
-		font-style: normal;
-	}
-	@font-face {
-		font-family: 'Monocode';
-		src: url(${ chrome.runtime.getURL('fonts/monocode/monocode-bolditalic.ttf') });
-		font-weight: bold;
-		font-style: italic;
-	}`;
+addStyle(style);
 
 // Observer
 const observer = new MutationObserver(function (mutations) {
@@ -216,6 +156,7 @@ const observer = new MutationObserver(function (mutations) {
 			const HLJS_Iata_El = document.querySelectorAll('.hljs-iata');
 			const HLJS_Stats_El = document.querySelectorAll('.hljs-status');
 			const HLJS_Office_El = document.querySelectorAll('.hljs-office-info');
+			const HLJS_Office_Name_El = document.querySelectorAll('.hljs-office-name');
 			const HLJS_Highlighted_El = document.querySelectorAll('.hljs-flight, .hljs-flight-dl, .hljs-flight-partner, .hljs-time');
 			const HLJS_Date_El = document.querySelectorAll('.hljs-date');
 			const HLJS_Index_El = document.querySelectorAll('.hljs-index, .hljs-index-add, .hljs-index-yellow, .hljs-index-delete');
@@ -237,6 +178,7 @@ const observer = new MutationObserver(function (mutations) {
 				el.style.color = options.colorOffices;
 				el.style.cursor = "pointer"
 			});
+			HLJS_Office_Name_El.forEach((el) => el.style.color = options.colorOffices);
 			HLJS_Office_El.forEach((el) => el.style.color = options.colorOffices);
 			HLJS_Highlighted_El.forEach((el) => el.style.color = options.colorHighlight);
 			HLJS_Date_El.forEach((el) => { el.style.color = options.colorBg; el.style.backgroundColor = options.colorText; });
@@ -278,30 +220,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 observer.observe(target, config);
 
 // Trigger the observer
-setTimeout(() => {
-	target.textContent += " ";
-}, 100);
-
-// WIP
-const containsMultiple = (isSafe, string, commands, safeCommands) => {
-	let commandsLength = commands.length;
-	let safeCommandsLength = safeCommands.length;
-	if (string.length == 0) {
-		return true;
-	}
-	for (let i = 0; i < commandsLength; i++) {
-		if (string.includes(commands[i])) {
-			isSafe = true;
-			return true;
-		}
-	}
-	if (isSafe) {
-		for (let i = 0; i < safeCommandsLength; i++) {
-			if (string == safeCommands[i]) {
-				return true;
-			}
-		}
-		isSafe = false;
-		return false;
-	}
-}
+// setTimeout(() => {
+// 	target.textContent += " ";
+// }, 100);
