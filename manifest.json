@@ -1,5 +1,5 @@
 {
-	"name": "OSCAR Prettifier by H. Koev",
+	"name": "OSCAR Prettifier",
 	"action": {
 		"default_icon": {
 			"128": "images/128.png",
@@ -9,7 +9,7 @@
 			"16": "images/16.png"
 		},
 		"default_popup": "popup/index.html",
-		"default_title": "OSCAR Prettifier by H. Koev"
+		"default_title": "OSCAR Prettifier"
 	},
 	"manifest_version": 3,
 	"version": "0.1",
@@ -41,7 +41,6 @@
 				"includes/replaceAsync.js",
 				"includes/updateChanges.js",
 				"includes/readFlightAndDate.js",
-				"includes/processLines.js",
 				"includes/etc/findIndex.js",
 				"includes/etc/processLines.js",
 				"includes/etc/convertDays.js",

@@ -1,4 +1,4 @@
-# Oscar Prettify v1
+# Oscar Prettifier v1
 
 This is a stand-alone Chrome Extension for the OSCAR tool, more known as Amadeus. It is a tool used by agents to book flights, see flight history, etc. This extension is meant to be used by agents, to make the tool more user-friendly and easier to use.
 

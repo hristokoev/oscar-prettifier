@@ -1,3 +1,8 @@
+// Welcome page
+chrome.runtime.onInstalled.addListener(function() {
+    chrome.tabs.create({ url: "welcome/index.html" });
+});
+
 // Milweb URL handler
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 	if (message.linkUrl) {
