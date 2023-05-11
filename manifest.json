@@ -80,7 +80,8 @@
 				"fonts/**/*.ttf"
 			],
 			"matches": [
-				"https://oscar.airfrance-is.com/*"
+				"https://oscar.airfrance-is.com/*",
+				"https://koev.cz/*"
 			]
 		}
 	]
