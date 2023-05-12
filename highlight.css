@@ -198,6 +198,7 @@
 	display: block;
 	border-bottom: 0.5px dashed;
 	opacity: 0.25;
+	margin-bottom: 1px;
 }
 
 .highlight-line > a {

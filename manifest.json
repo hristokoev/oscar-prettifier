@@ -1,5 +1,5 @@
 {
-	"name": "OSCAR Prettifier",
+	"name": "Pretty OSCAR",
 	"action": {
 		"default_icon": {
 			"128": "images/128.png",
@@ -9,7 +9,7 @@
 			"16": "images/16.png"
 		},
 		"default_popup": "popup/index.html",
-		"default_title": "OSCAR Prettifier"
+		"default_title": "Pretty OSCAR"
 	},
 	"manifest_version": 3,
 	"version": "0.1",
