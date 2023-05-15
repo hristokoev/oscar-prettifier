@@ -23,8 +23,7 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"https://oscar.airfrance-is.com/*",
-				"https://koev.cz/*"
+				"https://oscar.airfrance-is.com/*"
 			],
 			"css": [
 				"highlight.css"
@@ -80,8 +79,7 @@
 				"fonts/**/*.ttf"
 			],
 			"matches": [
-				"https://oscar.airfrance-is.com/*",
-				"https://koev.cz/*"
+				"https://oscar.airfrance-is.com/*"
 			]
 		}
 	]
