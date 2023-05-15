@@ -276,7 +276,7 @@ document.querySelector(".oscarLink").addEventListener("click", function () {
 });
 
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-	if (tabs[0].url.includes("https://oscar.airfrance-is.com/") || tabs[0].url.includes("https://koev.cz/")) {
+	if (tabs[0].url.includes("https://oscar.airfrance-is.com/")) {
 		document.querySelector(".app").style.display = "block";
 		document.querySelector(".notOscar").style.display = "none";
 	} else {
