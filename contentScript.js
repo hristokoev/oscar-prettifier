@@ -85,7 +85,7 @@ const observer = new MutationObserver(function (mutations) {
 			}
 
 			// Limit to these commands
-			if (containsMultiple(isSafe, DOM_History_El.value, ["PV", "RPP/RLC", "RT", "RPP/RHA", "RHA", "PLD"], ["MD", "MU", "MT", "MB"])) {
+			if (containsMultiple(isSafe, DOM_History_El.value, ["PV", "RPP/RLC", "RT", "RPP/RH", "RH", "PLD"], ["MD", "MU", "MT", "MB"], ["HE "])) {
 
 				// Preprocess the text
 				target.textContent = preprocessor(target.textContent, options);
@@ -239,8 +239,3 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
 // Start observing
 observer.observe(target, config);
-
-// Trigger the observer
-setTimeout(() => {
-	target.textContent += " ";
-}, 100);
