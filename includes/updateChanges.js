@@ -37,9 +37,3 @@ const updateChangesOnLoad = (changes) => {
 		}
 	};
 }
-
-const updateChangesOnListener = (changes) => {
-	observer.disconnect();					// the observer is in the content script
-	updateChangesOnLoad(changes);
-	observer.observe(target, config);
-}
