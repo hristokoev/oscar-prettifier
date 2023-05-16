@@ -230,6 +230,12 @@ const observer = new MutationObserver(function (mutations) {
 	});
 });
 
+const updateChangesOnListener = (changes) => {
+	observer.disconnect();
+	updateChangesOnLoad(changes);
+	observer.observe(target, config);
+}
+
 // Reload the page - listens for a call from the popup
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 	if (message.url) {
