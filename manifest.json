@@ -1,5 +1,12 @@
 {
 	"name": "Pretty OSCAR",
+	"icons": {
+		"128": "images/128.png",
+		"64": "images/64.png",
+		"48": "images/48.png",
+		"32": "images/32.png",
+		"16": "images/16.png"
+	},
 	"action": {
 		"default_icon": {
 			"128": "images/128.png",
@@ -9,11 +16,11 @@
 			"16": "images/16.png"
 		},
 		"default_popup": "popup/index.html",
-		"default_title": "Pretty OSCAR"
+		"default_title": "Pretty OSCAR Alpha"
 	},
 	"manifest_version": 3,
-	"version": "0.1",
-	"description": "Makes your Oscar a bit prettier.",
+	"version": "1.0",
+	"description": "Makes your OSCAR a bit prettier. This is an Alpha version intended for testing purposes only.",
 	"permissions": [
 		"activeTab",
 		"tabs",
@@ -31,7 +38,7 @@
 			"js": [
 				"data/classCodes.js",
 				"data/iataCodes.js",
-				"data/statusCodes.js",				
+				"data/statusCodes.js",
 				"includes/preprocessor.js",
 				"includes/readClass.js",
 				"includes/readIata.js",
