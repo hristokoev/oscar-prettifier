@@ -37,3 +37,9 @@ const updateChangesOnLoad = (changes) => {
 		}
 	};
 }
+
+const updateChangesOnListener = (changes) => {
+	observer.disconnect();
+	updateChangesOnLoad(changes);
+	observer.observe(target, config);
+}
