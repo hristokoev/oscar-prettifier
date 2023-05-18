@@ -1,3 +1,11 @@
+a,
+a:visited,
+a:hover,
+a:active {
+    color: #fff;
+    text-decoration: none;
+}
+
 .welcome {
     justify-content: center;
     align-items: center;
@@ -47,18 +55,6 @@ code {
 
 .welcome li {
     margin-bottom: 10px
-}
-
-.welcome a {
-    color: #009bff
-}
-
-.welcome a:hover {
-    color: #0079ff
-}
-
-.welcome a:active {
-    color: #004e80
 }
 
 .welcome2 {
@@ -119,6 +115,6 @@ code {
 }
 
 .oscarLink:hover {
-	background: #54ef0d;
+	background: #3b8e14;
 	color: #fff;
 }
