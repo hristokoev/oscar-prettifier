@@ -25,7 +25,7 @@ code {
     border-radius: 4px;
     margin: 20px 60px 80px;
     padding: 40px;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, .15)
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, .15);
 }
 
 .welcome h1 {
@@ -107,4 +107,18 @@ code {
 
 .welcome2 a {
     color: #fff
+}
+
+.oscarLink {
+	margin-block: 20px;
+	background: #4bb619;
+	color: #fff;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.oscarLink:hover {
+	background: #54ef0d;
+	color: #fff;
 }
