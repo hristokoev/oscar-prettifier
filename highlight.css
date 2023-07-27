@@ -3,6 +3,10 @@
 	letter-spacing: 1px;
 }
 
+.emulatorResponse {
+	font-weight: normal !important;
+}
+
 .bg {
 	background: #22272e !important;
 	color: #adbbbc !important;
@@ -54,27 +58,26 @@
 
 .hljs-date {
 	display: inline-block;
-	background-color: #adbbbc;
-	color: #22272e;
-	padding: 2px 4px;
-	border-radius: 2px;
-	margin-top: 6px;
+	/* background-color: #adbbbc; */
+	/* color: #22272e; */
+	/* padding: 4px 6px; */
+	/* border-radius: 2px; */
+	margin-top: 4px;
 	margin-bottom: 12px;
-	font-size: 0.75em;
-	font-weight: bold;
+	/* font-size: 0.75em; */
+	/* font-weight: bold; */
 }
 
 .hljs-contact-info {
 	color: #f7ea5b;
 }
 
-.hljs-office-info,
 .hljs-office-name {
 	color: #f7ea5b;
 }
 
 .hljs-office-info {
-	text-decoration: underline;
+	font-weight: bold;
 }
 
 .hljs-iata {
@@ -112,7 +115,7 @@
 
 .highlight-line.dimmed {
 	background: #22272e;
-	text-decoration: 0.5px line-through solid;
+	text-decoration: 0.25px line-through solid;
 }
 
 .highlight-line.dimmed::after {
@@ -124,7 +127,7 @@
 	width: 100%;
 	height: 100%;
 	background: inherit;
-	opacity: 0.5;
+	opacity: 0.4;
 	z-index: 1;
 	pointer-events: none;
 }

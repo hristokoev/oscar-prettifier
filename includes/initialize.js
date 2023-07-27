@@ -14,7 +14,7 @@ let defaultOptions = {
 	linesToggle: true,
 	colorText: "#adbbbc",
 	colorBg: "#22272e",
-	colorIndex: "#8dd881",
+	colorPNR: "#8dd881",
 	colorHighlight: "#d0f4ea",
 	colorAirports: "#92d9f8",
 	colorOffices: "#f7ea5b",

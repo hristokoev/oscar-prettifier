@@ -3,24 +3,24 @@ const readClass = (flightClass, partner) => {
 	const clone = flightClass.cloneNode(true);
 	const parent = flightClass.parentNode;
 	const container = document.createElement('div');
-	clone.textContent = partner ? `Partner class ${classText}` : `${CLASSESAFKL[classText]} ${classText}`;
+	clone.textContent = partner ? `Partner class ${classText}` : CLASSESAFKL[classText];
 	if (clone.textContent != `Partner class ${classText}`) {
 		switch (CLASSESAFKL[classText]) {
 			case "Economy":
-				flightClass.textContent = `ECO ${classText}`;
+				flightClass.textContent = `${classText}`;
 				break;
 			case "Business":
-				flightClass.textContent = `BIZ ${classText}`;
+				flightClass.textContent = `${classText}`;
 				break;
 			case "Economy (Europe) or\nLa Première (Intercontinental)":
-				flightClass.textContent = `E/1 ${classText}`;
+				flightClass.textContent = `${classText}`;
 				break;
 			case "Economy (Europe) or\nPremium Comfort (Intercontinental)":
-				flightClass.textContent = `E/P ${classText}`;
+				flightClass.textContent = `${classText}`;
 				break;
 		}
 	} else {
-		flightClass.textContent = `    ${classText}`;
+		flightClass.textContent = `${classText}`;
 	}
 	clone.className = 'popup';
 	parent.replaceChild(container, flightClass);

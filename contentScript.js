@@ -146,21 +146,22 @@ const observer = new MutationObserver(function (mutations) {
 			HLJS_Office_El.forEach((el) => {
 				let iata = el.textContent;
 				let office = DOM_Office_El.value;
-				readOffice(el, iata, office);
-				el.style.color = options.colorOffices;
-				el.style.cursor = "pointer"
+				// Disable office IATA link
+				// readOffice(el, iata, office);
+				// el.style.color = options.colorOffices;
+				// el.style.cursor = "pointer"
 			});
 			HLJS_Office_Name_El.forEach((el) => el.style.color = options.colorOffices);
-			HLJS_Office_El.forEach((el) => el.style.color = options.colorOffices); +
+			// HLJS_Office_El.forEach((el) => el.style.color = options.colorOffices);
 
-				// Highlighted elements color
-				HLJS_Highlighted_El.forEach((el) => el.style.color = options.colorHighlight);
+			// Highlighted elements color
+			HLJS_Highlighted_El.forEach((el) => el.style.color = options.colorHighlight);
 
 			// Date elements color
-			HLJS_Date_El.forEach((el) => { el.style.color = options.colorBg; el.style.backgroundColor = options.colorText; });
+			// HLJS_Date_El.forEach((el) => { el.style.color = options.colorBg; el.style.backgroundColor = options.colorText; });
 
 			// Index elements color
-			HLJS_Index_El.forEach((el) => el.style.color = options.colorIndex);
+			HLJS_Index_El.forEach((el) => el.style.color = options.colorPNR);
 
 			// Contacts elements color
 			HLJS_Contacts_El.forEach((el) => el.style.color = options.colorContacts);
@@ -182,7 +183,7 @@ const observer = new MutationObserver(function (mutations) {
 			// PNR link
 			const HLJS_PNR_El = document.querySelectorAll('.hljs-pnr');
 			HLJS_PNR_El.forEach((el) => {
-				el.style.color = options.colorIndex;
+				el.style.color = options.colorPNR;
 				el.addEventListener("click", () => {
 					window.open(`https://ticket.airfrance-is.com/ticket/ticket.visu.recherche.do?selectedtab=&pnr=${el.textContent}&valider=OK&foidPreMulti=+&action=rechercheForm&rechercheLargeMulti=off&archiveMulti=off`, "_blank");
 				})

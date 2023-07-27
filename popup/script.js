@@ -5,7 +5,7 @@ let darkPreset = {
 	theme: "dark",
 	colorText: "#adbbbc",
 	colorBg: "#22272e",
-	colorIndex: "#8dd881",
+	colorPNR: "#8dd881",
 	colorHighlight: "#d0f4ea",
 	colorAirports: "#92d9f8",
 	colorOffices: "#f7ea5b",
@@ -17,7 +17,7 @@ let lightPreset = {
 	theme: "light",
 	colorText: "#2E343B",
 	colorBg: "#FFFFFF",
-	colorIndex: "#00A955",
+	colorPNR: "#00A955",
 	colorHighlight: "#1978D4",
 	colorAirports: "#00A4A6",
 	colorOffices: "#E26A6A",
@@ -29,7 +29,7 @@ let light2Preset = {
 	theme: "light2",
 	colorText: "#4B6A88",
 	colorBg: "#FFFFFF",
-	colorIndex: "#3455DB",
+	colorPNR: "#3455DB",
 	colorHighlight: "#00AA00",
 	colorAirports: "#00AA00",
 	colorOffices: "#1E90FF",
@@ -42,7 +42,7 @@ let richPreset = {
 	theme: "rich",
 	colorText: "#CCB9CF",
 	colorBg: "#232743",
-	colorIndex: "#98D8AA",
+	colorPNR: "#98D8AA",
 	colorHighlight: "#FDE2F3",
 	colorAirports: "#FDE2F3",
 	colorOffices: "#FFE175",
@@ -54,7 +54,7 @@ let cameoPreset = {
 	theme: "cameo",
 	colorText: "#E8E8E8",
 	colorBg: "#3C3B39",
-	colorIndex: "#D2CEA9",
+	colorPNR: "#D2CEA9",
 	colorHighlight: "#FDE3A7",
 	colorAirports: "#FDE3A7",
 	colorOffices: "#F1F227",
@@ -66,7 +66,7 @@ let mutedBluePreset = {
 	theme: "mutedBlue",
 	colorText: "#ECF0F1",
 	colorBg: "#3D4C5C",
-	colorIndex: "#99C7BE",
+	colorPNR: "#99C7BE",
 	colorHighlight: "#A9D5DB",
 	colorAirports: "#A9D5DB",
 	colorOffices: "#B5E655",
@@ -78,7 +78,7 @@ let matrixPreset = {
 	theme: "matrix",
 	colorText: "#22B455",
 	colorBg: "#020204",
-	colorIndex: "#22B455",
+	colorPNR: "#22B455",
 	colorHighlight: "#80CE87",
 	colorAirports: "#92E5A1",
 	colorOffices: "#D4D4D4",
@@ -90,7 +90,7 @@ let highContrastLightPreset = {
 	theme: "highContrastLight",
 	colorText: "#000000",
 	colorBg: "#FFFFFF",
-	colorIndex: "#000000",
+	colorPNR: "#000000",
 	colorHighlight: "#000000",
 	colorAirports: "#000000",
 	colorOffices: "#00FFFF",
@@ -102,7 +102,7 @@ let highContrastDarkPreset = {
 	theme: "highContrastDark",
 	colorText: "#FFFFFF",
 	colorBg: "#000000",
-	colorIndex: "#FFFFFF",
+	colorPNR: "#FFFFFF",
 	colorHighlight: "#FFFFFF",
 	colorAirports: "#FFFFFF",
 	colorOffices: "#00FFFF",
@@ -198,9 +198,9 @@ document.getElementById("colorBg").addEventListener("change", function () {
 	chrome.storage.sync.set({ "colorBg": newValue });
 });
 
-document.getElementById("colorIndex").addEventListener("change", function () {
+document.getElementById("colorPNR").addEventListener("change", function () {
 	let newValue = this.value;
-	chrome.storage.sync.set({ "colorIndex": newValue });
+	chrome.storage.sync.set({ "colorPNR": newValue });
 });
 
 document.getElementById("colorHighlight").addEventListener("change", function () {
@@ -231,7 +231,7 @@ document.getElementById("colorImportant").addEventListener("change", function ()
 
 // Function to load selected preset from Chrome Storage
 function loadPreset() {
-	chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "hideSegmentStatusToggle", "linesToggle", "colorText", "colorBg", "colorIndex", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
+	chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "hideSegmentStatusToggle", "linesToggle", "colorText", "colorBg", "colorPNR", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
 		document.getElementById("switch").checked = result.switch || typeof result.switch === 'undefined';
 		document.getElementById("options").style.display = document.getElementById("switch").checked ? "block" : "none";
 		document.getElementById("theme").value = result.theme || darkPreset.theme;
@@ -242,7 +242,7 @@ function loadPreset() {
 		document.getElementById("linesToggle").checked = result.linesToggle || typeof result.linesToggle === 'undefined';
 		document.getElementById("colorText").value = result.colorText || darkPreset.colorText;
 		document.getElementById("colorBg").value = result.colorBg || darkPreset.colorBg;
-		document.getElementById("colorIndex").value = result.colorIndex || darkPreset.colorIndex;
+		document.getElementById("colorPNR").value = result.colorPNR || darkPreset.colorPNR;
 		document.getElementById("colorHighlight").value = result.colorHighlight || darkPreset.colorHighlight;
 		document.getElementById("colorAirports").value = result.colorAirports || darkPreset.colorAirports;
 		document.getElementById("colorOffices").value = result.colorOffices || darkPreset.colorOffices;
