@@ -30,8 +30,7 @@
 	"content_scripts": [
 		{
 			"matches": [
-				"https://oscar.airfrance-is.com/*",
-				"http://127.0.0.1:5500/*"
+				"https://oscar.airfrance-is.com/*"
 			],
 			"css": [
 				"highlight.css"
@@ -42,7 +41,6 @@
 				"data/classCodes.js",
 				"data/iataCodes.js",
 				"data/statusCodes.js",
-				"includes/etc/convertTime.js",
 				"includes/preprocessor.js",
 				"includes/readClass.js",
 				"includes/readIata.js",
@@ -55,6 +53,7 @@
 				"includes/etc/findIndex.js",
 				"includes/etc/processLines.js",
 				"includes/etc/convertDays.js",
+				"includes/etc/convertTime.js",
 				"includes/etc/convertDaysMilweb.js",
 				"includes/etc/containsMultiple.js",
 				"fonts/style.js",
@@ -90,8 +89,7 @@
 				"fonts/**/*.ttf"
 			],
 			"matches": [
-				"https://oscar.airfrance-is.com/*",
-				"http://127.0.0.1:5500/*"
+				"https://oscar.airfrance-is.com/*"
 			]
 		}
 	]

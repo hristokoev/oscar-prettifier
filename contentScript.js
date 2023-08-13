@@ -212,8 +212,3 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 if (users.includes(userID)) {
 	observer.observe(target, config);
 }
-
-// Trigger the observer
-setTimeout(() => {
-	target.textContent += ' ';
-}, 200);
