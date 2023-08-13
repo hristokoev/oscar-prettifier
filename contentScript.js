@@ -145,6 +145,9 @@ const observer = new MutationObserver(function (mutations) {
 			// Segment status tooltip
 			options.statusToggle && HLJS_Stats_El.forEach((el) => { readStatus(el); el.style.cursor = "pointer"; });
 
+			// Date tooltip
+			options.dateToggle && HLJS_Date_El.forEach((el) => { readDate(el); el.style.cursor = "pointer"; });
+
 			// Office link in PNR history
 			HLJS_Office_El.forEach((el) => {
 				let iata = el.textContent;

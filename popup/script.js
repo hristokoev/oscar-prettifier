@@ -102,10 +102,10 @@ let highContrastDarkPreset = {
 	theme: "highContrastDark",
 	colorText: "#FAFAFA",
 	colorBg: "#050505",
-	colorPNR: "#FF0000",
-	colorHighlight: "#007DFF",
-	colorAirports: "#007DFF",
-	colorOffices: "#007DFF",
+	colorPNR: "#FFFF00",
+	colorHighlight: "#52A5FF",
+	colorAirports: "#52A5FF",
+	colorOffices: "#52A5FF",
 	colorContacts: "#FF0000",
 	colorImportant: "#FF0000"
 }
@@ -255,7 +255,7 @@ function loadPreset() {
 		document.getElementById("colorAirports").value = result.colorAirports || darkPreset.colorAirports;
 		document.getElementById("colorOffices").value = result.colorOffices || darkPreset.colorOffices;
 		document.getElementById("colorContacts").value = result.colorContacts || darkPreset.colorContacts;
-		document.getElementById("colorImportant").value = result.colorImportan || darkPreset.colorImportant;
+		document.getElementById("colorImportant").value = result.colorImportant || darkPreset.colorImportant;
 	});
 }
 

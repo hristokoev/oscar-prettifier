@@ -63,7 +63,7 @@
 	border-radius: 2px;
 	margin-top: 4px;
 	margin-bottom: 12px;
-	/* font-size: 0.75em; */
+	font-size: 0.85em;
 	font-weight: bold;
 }
 
@@ -102,6 +102,7 @@
 .hljs-class:hover+.popup,
 .hljs-class-partner:hover+.popup,
 .hljs-status:hover+.popup,
+.hljs-date:hover+.popup,
 .hljs-iata:hover+.popup,
 .hljs-office-info:hover+.popup {
 	opacity: 1;
@@ -114,7 +115,7 @@
 
 .highlight-line.dimmed {
 	background: #22272e;
-	text-decoration: 0.25px line-through solid;
+	/* text-decoration: 0.25px line-through solid; */
 }
 
 .highlight-line.dimmed::after {
@@ -126,7 +127,7 @@
 	width: 100%;
 	height: 100%;
 	background: inherit;
-	opacity: 0.4;
+	opacity: 0.33;
 	z-index: 1;
 	pointer-events: none;
 }
