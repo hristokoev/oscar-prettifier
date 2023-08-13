@@ -49,23 +49,22 @@
 	font-weight: 500;
 }
 
-/* .hljs-date {
+.hljs-date {
 	display: inline-block;
 	margin-bottom: 10px;
 	color: #D0F4EA;
-	text-decoration: underline;
-} */
+}
 
 .hljs-date {
 	display: inline-block;
-	/* background-color: #adbbbc; */
-	/* color: #22272e; */
-	/* padding: 4px 6px; */
-	/* border-radius: 2px; */
+	background-color: #adbbbc;
+	color: #22272e;
+	padding: 4px 6px;
+	border-radius: 2px;
 	margin-top: 4px;
 	margin-bottom: 12px;
 	/* font-size: 0.75em; */
-	/* font-weight: bold; */
+	font-weight: bold;
 }
 
 .hljs-contact-info {
@@ -143,7 +142,7 @@
 	padding: 5px;
 	border-radius: 5px;
 	transform: translate(-50%, -100%);
-	transition: 0.1s ease all;
+	/* transition: 0.1s ease all; */
 }
 
 .hljs-status.un {

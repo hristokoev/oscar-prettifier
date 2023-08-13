@@ -88,26 +88,26 @@ let matrixPreset = {
 
 let highContrastLightPreset = {
 	theme: "highContrastLight",
-	colorText: "#000000",
-	colorBg: "#FFFFFF",
-	colorPNR: "#000000",
-	colorHighlight: "#000000",
-	colorAirports: "#000000",
-	colorOffices: "#00FFFF",
-	colorContacts: "#FF2600",
-	colorImportant: "#FF2600"
+	colorText: "#050505",
+	colorBg: "#FAFAFA",
+	colorPNR: "#FF0000",
+	colorHighlight: "#007DFF",
+	colorAirports: "#007DFF",
+	colorOffices: "#007DFF",
+	colorContacts: "#FF0000",
+	colorImportant: "#FF0000"
 }
 
 let highContrastDarkPreset = {
 	theme: "highContrastDark",
-	colorText: "#FFFFFF",
-	colorBg: "#000000",
-	colorPNR: "#FFFFFF",
-	colorHighlight: "#FFFFFF",
-	colorAirports: "#FFFFFF",
-	colorOffices: "#00FFFF",
-	colorContacts: "#FF2600",
-	colorImportant: "#FF2600"
+	colorText: "#FAFAFA",
+	colorBg: "#050505",
+	colorPNR: "#FF0000",
+	colorHighlight: "#007DFF",
+	colorAirports: "#007DFF",
+	colorOffices: "#007DFF",
+	colorContacts: "#FF0000",
+	colorImportant: "#FF0000"
 }
 
 // Event listener for preset dropdown
@@ -174,6 +174,13 @@ document.getElementById("statusToggle").addEventListener("change", function () {
 	chrome.storage.sync.set({ "statusToggle": newValue });
 });
 
+document.getElementById("dateToggle").addEventListener("change", function () {
+	let newValue = this.checked;
+	document.getElementById("reload").style.display = "block";
+	document.querySelector(".divider").style.display = "none";
+	chrome.storage.sync.set({ "dateToggle": newValue });
+});
+
 document.getElementById("hideSegmentStatusToggle").addEventListener("change", function () {
 	let newValue = this.checked;
 	document.getElementById("reload").style.display = "block";
@@ -231,13 +238,14 @@ document.getElementById("colorImportant").addEventListener("change", function ()
 
 // Function to load selected preset from Chrome Storage
 function loadPreset() {
-	chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "hideSegmentStatusToggle", "linesToggle", "colorText", "colorBg", "colorPNR", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
+	chrome.storage.sync.get(["switch", "theme", "classToggle", "iataToggle", "statusToggle", "dateToggle", "hideSegmentStatusToggle", "linesToggle", "colorText", "colorBg", "colorPNR", "colorHighlight", "colorAirports", "colorOffices", "colorContacts", "colorImportant"], function (result) {
 		document.getElementById("switch").checked = result.switch || typeof result.switch === 'undefined';
 		document.getElementById("options").style.display = document.getElementById("switch").checked ? "block" : "none";
 		document.getElementById("theme").value = result.theme || darkPreset.theme;
 		document.getElementById("classToggle").checked = result.classToggle || typeof result.classToggle === 'undefined';
 		document.getElementById("iataToggle").checked = result.iataToggle || typeof result.iataToggle === 'undefined';
 		document.getElementById("statusToggle").checked = result.statusToggle || typeof result.statusToggle === 'undefined';
+		document.getElementById("dateToggle").checked = result.dateToggle || typeof result.dateToggle === 'undefined';
 		document.getElementById("hideSegmentStatusToggle").checked = result.hideSegmentStatusToggle || typeof result.hideSegmentStatusToggle === 'undefined';
 		document.getElementById("linesToggle").checked = result.linesToggle || typeof result.linesToggle === 'undefined';
 		document.getElementById("colorText").value = result.colorText || darkPreset.colorText;
@@ -276,7 +284,7 @@ document.querySelector(".oscarLink").addEventListener("click", function () {
 });
 
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-	if (tabs[0].url.includes("https://oscar.airfrance-is.com/")) {
+	if (tabs[0].url.includes("https://oscar.airfrance-is.com/") || tabs[0].url.includes("127.0.0.1")) {
 		document.querySelector(".app").style.display = "block";
 		document.querySelector(".notOscar").style.display = "none";
 	} else {

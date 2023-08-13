@@ -10,6 +10,7 @@ let defaultOptions = {
 	classToggle: true,
 	iataToggle: true,
 	statusToggle: true,
+	dateToggle: true,
 	hideSegmentStatusToggle: true,
 	linesToggle: true,
 	colorText: "#adbbbc",

@@ -6,14 +6,14 @@ const updateChangesOnLoad = (changes) => {
 				document.querySelector('.hljs').style.color = newValue;
 				document.querySelectorAll('.popup').forEach((el) => el.style.color = newValue);
 				document.querySelectorAll('.popup').forEach((el) => el.style.borderColor = newValue);
-				// document.querySelectorAll('.hljs-date').forEach((el) => el.style.backgroundColor = newValue);
+				document.querySelectorAll('.hljs-date').forEach((el) => el.style.backgroundColor = newValue);
 				break;
 			case "colorBg":
 				document.querySelector('.hljs').style.backgroundColor = newValue;
 				document.querySelector('.hljs').parentNode.style.backgroundColor = newValue;
 				document.querySelectorAll('.popup').forEach((el) => el.style.backgroundColor = newValue);
 				document.querySelectorAll('.dimmed').forEach((el) => el.style.backgroundColor = newValue);
-				// document.querySelectorAll('.hljs-date').forEach((el) => el.style.color = newValue);
+				document.querySelectorAll('.hljs-date').forEach((el) => el.style.color = newValue);
 				break;
 			case "colorPNR":
 				document.querySelectorAll('.hljs-index, .hljs-index-add, .hljs-index-change, .hljs-index-delete, .hljs-index-rf, .hljs-pnr').forEach((el) => el.style.color = newValue);

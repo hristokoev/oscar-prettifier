@@ -21,15 +21,15 @@
 				<h4 class="options-label">Theme&nbsp</h4>
 				<div class="theme-selector">
 					<select name="theme" id="theme">
-						<option value="light">Light</option>
-						<option value="light2">Light 2</option>
+						<!-- <option value="light">Light</option>
+						<option value="light2">Light 2</option> -->
+						<option value="highContrastLight">High Contrast (Light)</option>
+						<option value="highContrastDark">High Contrast (Dark)</option>
 						<option value="dark">Dark</option>
 						<option value="rich">Rich Purple</option>
 						<option value="cameo">Cameo</option>
 						<option value="mutedBlue">Muted Blue</option>
 						<option value="matrix">Matrix</option>
-						<option value="highContrastLight">High Contrast (Light)</option>
-						<option value="highContrastDark">High Contrast (Dark)</option>
 					</select>
 				</div>
 				<button id="resetButton" class="options-label">Reset</button>
@@ -57,7 +57,7 @@
 				</div>
 				<div class="option">
 					<input type="color" name="colorOffices" id="colorOffices" value="#000000">
-					<label for="colorOffices">Offices</label>
+					<label for="colorOffices">Office Name</label>
 				</div>
 				<div class="option">
 					<input type="color" name="colorContacts" id="colorContacts" value="#000000">
@@ -81,6 +81,10 @@
 				<div class="option">
 					<input type="checkbox" name="statusToggle" id="statusToggle">
 					<label for="statusToggle">Segment status</label>
+				</div>
+				<div class="option">
+					<input type="checkbox" name="dateToggle" id="dateToggle">
+					<label for="dateToggle">Date Format</label>
 				</div>
 			</div>
 			<h4 class="options-label">Extra</h4>

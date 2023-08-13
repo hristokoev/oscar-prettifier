@@ -10,6 +10,6 @@
 const LANG_DATE = [
 	{
 		className: 'date',
-		begin: /(?<=\n        )[0-9]{2} (JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC) [0-9]{4}Z/gi
+		begin: /(?<=\n        )[0-9]{2}(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)[0-9]{4}Z/gi
 	}
 ];

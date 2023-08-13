@@ -19,5 +19,5 @@
 // NEW VERSION:
 
 const convertTime = (all, p1, p2, p3, p4) => {
-	return `        ${p1} ${p2} ${p3}${p4}Z`;
+	return `        ${p1}${p2}${p3}${p4}Z`;
 }

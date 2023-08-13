@@ -1,5 +1,8 @@
 // SEE INCLUDES/INITIALIZE.JS FOR SETTINGS
 
+// Access
+const userID = document.querySelector('input[name="sign"]').value;
+
 // HLJS Register Language
 hljs.registerLanguage('oscar', function () {
 	return {
@@ -158,7 +161,7 @@ const observer = new MutationObserver(function (mutations) {
 			HLJS_Highlighted_El.forEach((el) => el.style.color = options.colorHighlight);
 
 			// Date elements color
-			// HLJS_Date_El.forEach((el) => { el.style.color = options.colorBg; el.style.backgroundColor = options.colorText; });
+			HLJS_Date_El.forEach((el) => { el.style.color = options.colorBg; el.style.backgroundColor = options.colorText; });
 
 			// Index elements color
 			HLJS_Index_El.forEach((el) => el.style.color = options.colorPNR);
@@ -203,4 +206,11 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 // Start observing
-observer.observe(target, config);
+if (users.includes(userID)) {
+	observer.observe(target, config);
+}
+
+// Trigger the observer
+setTimeout(() => {
+	target.textContent += ' ';
+}, 200);
