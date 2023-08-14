@@ -2,5 +2,6 @@
 
 const users = [
 	"HRISTO STEFANOV KOEV",
-	""
+	"NAME SURNAME 1",
+	"NAME SURNAME 2"
 ];
