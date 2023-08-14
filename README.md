@@ -2,6 +2,8 @@
 
 This is a stand-alone Chrome Extension for the OSCAR tool, more known as Amadeus. It is a tool used by agents to book flights, see flight history, etc. This extension is meant to be used by agents, to make the tool more user-friendly and easier to use.
 
+Do note that unless you have access to OSCAR, this extension will be useless to you. 😢
+
 ## Features
 
 - It's simple, really. Makes the tool prettier and easier to read.
@@ -32,6 +34,4 @@ The OSCAR tool has only one `<pre>` tag, which contains all the information. Thi
 
 ## TODO
 
-- [ ] Add more themes.
-- [ ] Style SSR and information about seats.
 - [ ] Expand the extension to other departments.
