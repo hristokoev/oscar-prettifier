@@ -1,7 +1,7 @@
 // SEE INCLUDES/INITIALIZE.JS FOR SETTINGS
 
 // Access
-const userID = document.querySelector('input[name="sign"]').value;
+const userName = document.querySelector('span[class="agent-name"]').innerText;
 
 // HLJS Register Language
 hljs.registerLanguage('oscar', function () {
@@ -25,9 +25,11 @@ const observer = new MutationObserver(function (mutations) {
 		// Gets the options stored in the local storage, or otherwise load by default
 		chrome.storage.sync.get(Object.keys(defaultOptions), function (result) {
 			if (Object.keys(result).length === 0 && result.constructor === Object) {
+				alert("Default");
 				chrome.storage.sync.set(defaultOptions);
 				options = { ...defaultOptions };
 			} else {
+				alert("Saved");
 				options = { ...result };
 			}
 
@@ -209,6 +211,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 });
 
 // Start observing
-if (users.includes(userID)) {
+if (users.includes(userName)) {
 	observer.observe(target, config);
 }
