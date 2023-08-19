@@ -74,6 +74,7 @@
 				"syntax/pnr.js",
 				"syntax/officename.js",
 				"includes/language.js",
+				"includes/copyListener.js",
 				"highlight.min.js",
 				"highlightjs-highlight-lines.min.js",
 				"contentScript.js"

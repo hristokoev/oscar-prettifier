@@ -25,11 +25,9 @@ const observer = new MutationObserver(function (mutations) {
 		// Gets the options stored in the local storage, or otherwise load by default
 		chrome.storage.sync.get(Object.keys(defaultOptions), function (result) {
 			if (Object.keys(result).length === 0 && result.constructor === Object) {
-				console.log("Default");
 				chrome.storage.sync.set(defaultOptions);
 				options = { ...defaultOptions };
 			} else {
-				console.log("Saved");
 				options = { ...result };
 			}
 

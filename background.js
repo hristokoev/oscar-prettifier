@@ -18,9 +18,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 			});
 		  });
 
-		  chrome.storage.local.set({ lastFlightOperator: message.fo }).then(() => {
-			console.log("Value is set to " + message.fo);
-		  });
+		  chrome.storage.local.set({ lastFlightOperator: message.fo });
 	
 		  // Update the URL of the first tab to the second webpage
 		  chrome.tabs.update(firstTab.id, { url: `https://milweb.airfrance-is.com/MilordWeb/flightInfo.do?searchAirlDsgCd=${message.fo}&searchFlightNumber=${message.fn}&searchFltIdDtWDate=${message.fd}&action=search&` });
